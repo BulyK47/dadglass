@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Local env / editor
+.env
+.env.local
+.claude/
+.vscode/
+.idea/
+.DS_Store
+*.log
+vite-*.log
+
+# Original full-size images (kept out of the repo; WebP is generated from these)
+image-originals/
+
+# Deploy artifacts
+*.zip
+dadglass-deploy/
+
+# QA / tooling scratch
+.qa-edge-profile-*/
+qa-screenshots/
+
+# Capacitor — commit the native projects, but ignore generated/build output
+android/app/build/
+android/build/
+android/.gradle/
+android/app/src/main/assets/public/
+android/app/src/main/res/xml/config.xml
+ios/App/build/
+ios/App/Pods/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+# Never commit signing material
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+key.properties
+
+# ── CONTENT SEPARATION ────────────────────────────────────────────────────
+# The code (the "mechanism") is open source under MPL-2.0. The weekly guide
+# text, its Romanian translations and the illustrations are proprietary —
+# see CONTENT_LICENSE.md. They live in the swappable content layer below and
+# are NOT published. The repo ships src/content.sample + assets.sample instead,
+# so a fresh clone still builds and runs.
+src/content/
+public/assets/baby/
+public/assets/glasses/
+public/assets/dad-objects/
+
+# Local backups from the content-split refactor
+src/.data-backup/
+src/.loc-backup.ts
+src/.content-hidden/
+
+# The illustration brief is part of the proprietary content (it specifies the
+# exact object + visual treatment for every week) — keep it out of the repo.
+dad-object-image-generation-list.md
+
+# Superseded local notes (kept on disk, not published)
+APP_WORKFLOW.md
+
+# Store assets are build artefacts of the listing; regenerate with
+# `npm run screenshots` / `npm run feature-graphic`. The listing TEXT is useful
+# to keep, so only the images are ignored.
+store-assets/screenshots/
+store-assets/feature-graphic-*.png

@@ -1,0 +1,47 @@
+{
+  "name": "dad-focused-pregnancy-app",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:phone": "vite --host 127.0.0.1 --port 5174 --strictPort",
+    "build": "vite build && node scripts/gen-sw.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "audit": "node scripts/audit.mjs",
+    "icons": "node scripts/gen-icons.mjs && npx capacitor-assets generate --android",
+    "sample:assets": "node scripts/use-sample-assets.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "preview:phone": "vite preview --host 127.0.0.1 --port 5174 --strictPort",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:android": "npm run build && npx cap sync android && npx cap open android",
+    "cap:ios": "npm run build && npx cap sync ios && npx cap open ios",
+    "screenshots": "node scripts/gen-screenshots.mjs",
+    "feature-graphic": "node scripts/gen-feature-graphic.mjs"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.4.2",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/local-notifications": "^8.2.1",
+    "@capacitor/share": "^8.0.1",
+    "@vitejs/plugin-react": "4.2.1",
+    "lucide-react": "0.487.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "vite": "4.5.14"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.4.2",
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.4.2",
+    "@capacitor/ios": "^8.4.2",
+    "@types/react": "^18.3.30",
+    "@types/react-dom": "^18.3.7",
+    "autoprefixer": "10.4.21",
+    "postcss": "8.5.6",
+    "puppeteer-core": "^25.5.0",
+    "sharp": "^0.35.2",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.9.3"
+  }
+}

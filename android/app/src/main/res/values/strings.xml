@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">DadGlass</string>
+    <string name="title_activity_main">DadGlass</string>
+    <string name="package_name">com.dadglass.app</string>
+    <string name="custom_url_scheme">com.dadglass.app</string>
+</resources>

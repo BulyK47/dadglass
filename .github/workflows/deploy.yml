@@ -1,0 +1,63 @@
+        # Builds the app and publishes it to GitHub Pages.
+#
+# What this gives you:
+#   • a public HTTPS URL for the PRIVACY POLICY (both app stores require one)
+#   • the installable PWA that iPhone users can "Add to Home Screen" for free
+#
+# IMPORTANT — hosting path:
+# The app uses absolute paths (/assets, /sw.js, manifest scope "/"), so it must be
+# served from the ROOT of a domain. That means either:
+#   a) a user/organisation site repo named  <your-username>.github.io   (recommended, free)
+#   b) a custom domain pointed at the repo
+# A project page like  username.github.io/dadglass/  will NOT work without also
+# setting Vite's `base` and regenerating the service worker + manifest paths.
+#
+# Setup once: repo → Settings → Pages → Source = "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # The public repo ships placeholder content; fill in the sample images so
+      # the deployed demo has something to render.
+      - run: npm run sample:assets
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

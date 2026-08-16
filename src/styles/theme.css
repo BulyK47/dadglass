@@ -1,0 +1,183 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Design System - Premium Pregnancy App for Dads */
+  
+  /* === COLOR SYSTEM === */
+  /* Primary Brand - Muted Deep Blue */
+  --primary-50: #f4f6f9;
+  --primary-100: #e8ecf2;
+  --primary-200: #d1dae5;
+  --primary-300: #aabcd2;
+  --primary-400: #7c9cbf;
+  --primary-500: #5a7a9a;
+  --primary-600: #4a6482;
+  --primary-700: #3d516b;
+  --primary-800: #364659;
+  --primary-900: #2f3c4c;
+  
+  /* Secondary - Sage Green */
+  --sage-50: #f6f8f6;
+  --sage-100: #e8ede8;
+  --sage-200: #d1dbd1;
+  --sage-300: #aabfaa;
+  --sage-400: #7a9a7a;
+  --sage-500: #5a7a5a;
+  --sage-600: #4a634a;
+  --sage-700: #3d513d;
+  --sage-800: #344434;
+  --sage-900: #2d3a2d;
+  
+  /* Warm Neutrals */
+  --warm-50: #fafaf9;
+  --warm-100: #f5f4f2;
+  --warm-200: #e8e6e3;
+  --warm-300: #d4d1cc;
+  --warm-400: #b8b4ad;
+  --warm-500: #9a968e;
+  --warm-600: #7d7972;
+  --warm-700: #66635d;
+  --warm-800: #56544f;
+  --warm-900: #4a4844;
+  
+  /* Slate/Charcoal */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  
+  /* Semantic Colors */
+  --success: #5a7a5a;
+  --success-light: #e8ede8;
+  --warning: #d97706;
+  --warning-light: #fef3c7;
+  --error: #dc2626;
+  --error-light: #fee2e2;
+  
+  /* Background Colors */
+  --bg-primary: #fafaf9;
+  --bg-secondary: #f5f4f2;
+  --bg-elevated: #ffffff;
+  
+  /* Text Colors */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-inverse: #ffffff;
+  
+  /* Border Colors */
+  --border-primary: #e2e8f0;
+  --border-secondary: #f1f5f9;
+  --border-subtle: #f8fafc;
+  
+  /* === TYPOGRAPHY === */
+  --font-size: 16px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Typography Scale */
+  --text-display: 2.25rem; /* 36px */
+  --text-title-lg: 1.75rem; /* 28px */
+  --text-title: 1.5rem; /* 24px */
+  --text-title-sm: 1.25rem; /* 20px */
+  --text-body-lg: 1.125rem; /* 18px */
+  --text-body: 1rem; /* 16px */
+  --text-body-sm: 0.875rem; /* 14px */
+  --text-caption: 0.75rem; /* 12px */
+  --text-overline: 0.6875rem; /* 11px */
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+  
+  /* === SPACING SYSTEM === */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  
+  /* Component Spacing */
+  --screen-padding: var(--space-5); /* 20px */
+  --card-padding: var(--space-5); /* 20px */
+  --card-padding-lg: var(--space-6); /* 24px */
+  --section-gap: var(--space-4); /* 16px */
+  --vertical-rhythm: var(--space-6); /* 24px */
+  
+  /* === CORNER RADIUS === */
+  --radius-sm: 0.5rem; /* 8px */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
+  --radius-2xl: 2rem; /* 32px */
+  --radius-full: 9999px;
+  
+  /* Component Radii */
+  --radius-card: var(--radius-xl);
+  --radius-button: var(--radius-lg);
+  --radius-chip: var(--radius-full);
+  --radius-input: var(--radius-md);
+  
+  /* === SHADOWS === */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  
+  /* === COMPONENT TOKENS === */
+  --nav-height: 4rem; /* 64px */
+  --bottom-nav-height: 4rem; /* 64px */
+  --button-height: 3rem; /* 48px */
+  --button-height-sm: 2.5rem; /* 40px */
+  --input-height: 3rem; /* 48px */
+  
+  /* Glass Fill Colors */
+  --glass-fill: #7c9cbf;
+  --glass-fill-light: #aabcd2;
+  --glass-stroke: #475569;
+  
+  /* Legacy variables for compatibility */
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+  --card: var(--bg-elevated);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--primary-600);
+  --primary-foreground: var(--text-inverse);
+  --secondary: var(--slate-100);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--slate-100);
+  --muted-foreground: var(--text-tertiary);
+  --accent: var(--slate-100);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--error);
+  --destructive-foreground: var(--text-inverse);
+  --border: var(--border-primary);
+  --input: transparent;
+  --input-background: var(--slate-100);
+  --switch-background: var(--slate-300);
+  --ring: var(--slate-400);
+  --radius: var(--radius-lg);
+  --chart-1: var(--primary-400);
+  --chart-2: var(--sage-400);
+  --chart-3: var(--slate-400);
+  --chart-4: var(--warm-400);
+  --chart-5: var(--primary-300);
+}
