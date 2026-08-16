@@ -195,5 +195,33 @@ const priv = readAll("PRIVACY.md");
 const anySrc = srcFiles.map(readAll).join("\n");
 /not medical advice|nu.*sfaturi medicale|disclaimer/i.test(anySrc) ? OK("medical disclaimer present in app") : FAIL("no medical disclaimer in app");
 
+/*
+ * Both stores demand a *public HTTPS URL* for the privacy policy, and a .md file
+ * in the repo is not one — public/privacy.html is that URL. It duplicates
+ * PRIVACY.md by necessity (one is for readers of the repo, one for the stores),
+ * so check the two cannot silently drift apart on the things that matter.
+ */
+const privHtml = readAll("public/privacy.html");
+if (!privHtml) {
+  FAIL("public/privacy.html MISSING — the stores need a public privacy-policy URL");
+} else {
+  OK("public/privacy.html present (served at <base>/privacy.html)");
+  const contact = (priv.match(/[\w.+-]+@[\w-]+\.[\w.]+/) || [])[0];
+  contact && privHtml.includes(contact)
+    ? OK(`privacy contact matches PRIVACY.md (${contact})`)
+    : FAIL("privacy.html contact address does NOT match PRIVACY.md");
+  // The core claim the whole policy rests on — must survive in both copies.
+  /never leaves your device/i.test(privHtml) && /nu părăsește dispozitivul/i.test(privHtml)
+    ? OK("privacy.html states the on-device-only claim in both languages")
+    : FAIL("privacy.html lost the 'data never leaves your device' claim");
+  /not a medical device/i.test(privHtml) && /nu este un dispozitiv medical/i.test(privHtml)
+    ? OK("privacy.html carries the medical disclaimer in both languages")
+    : FAIL("privacy.html is missing the medical disclaimer");
+  // A store reviewer opens this cold: it must not depend on the app booting.
+  /<script/i.test(privHtml)
+    ? WARN("privacy.html contains a <script> — keep it plain HTML so it always renders")
+    : OK("privacy.html is self-contained (no scripts, no external requests)");
+}
+
 P("\n════════════════════════════════════");
 P(`RESULT: ${problems} blocking problem(s), ${warns} warning(s)`);

@@ -1,0 +1,178 @@
+<!doctype html>
+<!--
+  Public privacy policy page for DadGlass.
+
+  Both app stores require a publicly reachable HTTPS privacy-policy URL, and a
+  Markdown file in the repository is not one. This page is served by GitHub
+  Pages at  https://<user>.github.io/dadglass/privacy.html  and is the URL to
+  paste into Play Console / App Store Connect.
+
+  It is deliberately a plain static file in public/ (no bundler, no JS, no
+  external requests) so it keeps working even if the app itself fails to boot,
+  and so store reviewers can always read it.
+
+  KEEP IN SYNC WITH PRIVACY.md — `npm run audit` fails if the two disagree
+  about the contact address or the core "no data leaves the device" claim.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — DadGlass</title>
+<meta name="description" content="DadGlass does not collect, transmit or share any personal data. Everything you enter stays on your device." />
+<meta name="theme-color" content="#fafaf9" />
+<link rel="icon" href="./icon-192.png" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --text: #1c1917;
+    --muted: #57534e;
+    --line: #e7e5e4;
+    --accent: #0f766e;
+    --note-bg: #f5f5f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1917;
+      --surface: #262322;
+      --text: #f5f5f4;
+      --muted: #a8a29e;
+      --line: #3a3532;
+      --accent: #5eead4;
+      --note-bg: #302c2a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  header { display: flex; align-items: center; gap: .75rem; margin-bottom: .25rem; }
+  header img { width: 44px; height: 44px; border-radius: 11px; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0; letter-spacing: -.01em; }
+  .updated { color: var(--muted); font-size: .875rem; margin: .35rem 0 1.5rem; }
+  nav {
+    display: flex; gap: .5rem; flex-wrap: wrap;
+    padding-bottom: 1.5rem; margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  nav a {
+    display: inline-block; padding: .3rem .8rem;
+    border: 1px solid var(--line); border-radius: 999px;
+    background: var(--surface); color: var(--text);
+    text-decoration: none; font-size: .875rem;
+  }
+  nav a:hover { border-color: var(--accent); color: var(--accent); }
+  h2 {
+    font-size: 1.25rem; margin: 3rem 0 1rem;
+    padding-top: .5rem; scroll-margin-top: 1rem;
+  }
+  section:first-of-type h2 { margin-top: 0; }
+  .lede {
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: .5rem; padding: .9rem 1.1rem; margin: 0 0 1.5rem;
+    font-weight: 600;
+  }
+  ul { padding-left: 1.15rem; margin: 0; }
+  li { margin-bottom: .9rem; }
+  li strong { display: inline; }
+  code {
+    background: var(--note-bg); border-radius: .25rem;
+    padding: .1rem .35rem; font-size: .875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .contact {
+    margin-top: 1.5rem; padding: 1rem 1.1rem;
+    background: var(--note-bg); border-radius: .5rem;
+    font-size: .9375rem;
+  }
+  a { color: var(--accent); }
+  footer {
+    margin-top: 3.5rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted); font-size: .875rem;
+  }
+  footer a { color: var(--muted); }
+  @media print {
+    nav { display: none; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="./icon-192.png" alt="" />
+    <h1>Privacy Policy — DadGlass</h1>
+  </header>
+  <p class="updated">Last updated: 23 June 2026 &middot; Ultima actualizare: 23 iunie 2026</p>
+
+  <nav>
+    <a href="#english">English</a>
+    <a href="#romana">Română</a>
+  </nav>
+
+  <section id="english">
+    <h2>English</h2>
+
+    <p class="lede">Short version: DadGlass does not collect, transmit, or share any personal data. Everything you enter stays on your device.</p>
+
+    <ul>
+      <li><strong>No accounts, no servers, no tracking.</strong> DadGlass has no backend. It does not use analytics, advertising, or third-party trackers.</li>
+      <li><strong>On-device only.</strong> Anything you enter — your name and your partner's name, the baby's nickname, due date / week, journal entries, checklist state, appointment notes, and reminders — is stored <strong>locally in your browser/app storage on your device</strong> (<code>localStorage</code>). It never leaves your device and we never see it.</li>
+      <li><strong>You are in control.</strong> You can edit or delete individual entries in the app, and use <strong>"Reset all my data"</strong> in Profile to erase everything at once. Uninstalling the app (or clearing site data) also removes it.</li>
+      <li><strong>Calendar / journal export.</strong> When you tap "Add to calendar" or "Save journal", the app creates the file (<code>.ics</code> / <code>.html</code>) <strong>on your device</strong>. In the app version it is handed to your device's own share sheet so you can open or save it where you want; on the web it downloads normally. Nothing is sent to us. If you use the optional "Add to Google Calendar" link, that opens Google's own website, subject to Google's privacy policy.</li>
+      <li><strong>Notifications.</strong> If you turn on reminders, the app schedules them <strong>locally on your device</strong> (Android/iOS local notifications). There is no server and no push service involved — we cannot send you anything. On Android this uses the notification, wake-lock and restart permissions purely to show reminders you asked for. You can turn them off any time in the app or in your phone's settings.</li>
+      <li><strong>Children.</strong> DadGlass is intended for adults (expecting parents) and does not target children.</li>
+      <li><strong>Medical disclaimer.</strong> DadGlass is for information and support only. It is <strong>not a medical device</strong> and does not provide medical advice, diagnosis, or treatment. Always consult a doctor or midwife for medical decisions.</li>
+    </ul>
+
+    <p class="contact">
+      <strong>Contact:</strong> For any privacy question or data request, write to
+      <a href="mailto:dadglass.app@gmail.com">dadglass.app@gmail.com</a>.<br />
+      Because nothing you enter ever leaves your device, we hold no personal data about you and
+      therefore cannot access, export, or delete it on your behalf — you are always in control of
+      it directly in the app (Profile → "Reset all my data").
+    </p>
+  </section>
+
+  <section id="romana" lang="ro">
+    <h2>Română</h2>
+
+    <p class="lede">Pe scurt: DadGlass nu colectează, nu transmite și nu partajează niciun fel de date personale. Tot ce introduci rămâne pe dispozitivul tău.</p>
+
+    <ul>
+      <li><strong>Fără conturi, fără servere, fără urmărire.</strong> DadGlass nu are backend. Nu folosește analytics, reclame sau trackere terțe.</li>
+      <li><strong>Doar pe dispozitiv.</strong> Tot ce introduci — numele tău și al partenerei, porecla bebelușului, data probabilă / săptămâna, notițele din jurnal, checklist-ul, notițele de la programări și memento-urile — este stocat <strong>local, pe dispozitivul tău</strong> (<code>localStorage</code>). Nu părăsește dispozitivul și noi nu îl vedem niciodată.</li>
+      <li><strong>Tu deții controlul.</strong> Poți edita sau șterge notițe individuale în aplicație și poți folosi <strong>„Șterge toate datele mele”</strong> din Profil pentru a șterge tot deodată. Dezinstalarea aplicației (sau ștergerea datelor site-ului) le elimină de asemenea.</li>
+      <li><strong>Export calendar / jurnal.</strong> Când apeși „Adaugă în calendar” sau „Salvează jurnalul”, aplicația creează fișierul (<code>.ics</code> / <code>.html</code>) <strong>pe dispozitivul tău</strong>. În versiunea de aplicație este trimis către meniul de partajare al telefonului, ca să îl deschizi sau salvezi unde vrei; pe web se descarcă normal. Nimic nu ne este trimis nouă. Linkul opțional „Google Calendar” deschide site-ul Google, supus politicii de confidențialitate Google.</li>
+      <li><strong>Notificări.</strong> Dacă activezi memento-urile, aplicația le programează <strong>local, pe dispozitivul tău</strong> (notificări locale Android/iOS). Nu există server și niciun serviciu de push — nu îți putem trimite nimic. Pe Android, permisiunile de notificare, wake-lock și repornire sunt folosite exclusiv ca să afișeze memento-urile cerute de tine. Le poți opri oricând din aplicație sau din setările telefonului.</li>
+      <li><strong>Copii.</strong> DadGlass este destinat adulților (viitori părinți) și nu se adresează copiilor.</li>
+      <li><strong>Disclaimer medical.</strong> DadGlass oferă doar informații și sprijin. <strong>Nu este un dispozitiv medical</strong> și nu oferă sfaturi, diagnostic sau tratament medical. Consultă întotdeauna un medic sau o moașă pentru deciziile medicale.</li>
+    </ul>
+
+    <p class="contact">
+      <strong>Contact:</strong> Pentru orice întrebare legată de confidențialitate sau cerere privind datele,
+      scrie la <a href="mailto:dadglass.app@gmail.com">dadglass.app@gmail.com</a>.<br />
+      Pentru că nimic din ce introduci nu părăsește vreodată dispozitivul tău, nu deținem date
+      personale despre tine și, prin urmare, nu le putem accesa, exporta sau șterge în numele tău —
+      controlul îți aparține direct, în aplicație (Profil → „Șterge toate datele mele”).
+    </p>
+  </section>
+
+  <footer>
+    <a href="./">← DadGlass</a> &middot;
+    <a href="https://github.com/BulyK47/dadglass">Source code on GitHub</a>
+  </footer>
+
+</div>
+</body>
+</html>

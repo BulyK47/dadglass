@@ -19,9 +19,17 @@ Sources cited inline; verify against official docs before each submission (store
 ---
 
 ## Prerequisites
-- A public **privacy policy URL** (both stores require it). You have `PRIVACY.md`; host it as a
-  simple HTML page — e.g. free **GitHub Pages** for just that page, or a gist. (You do NOT need
-  to host the app itself.) Add your contact email in `PRIVACY.md` first.
+- A public **privacy policy URL** (both stores require it). **Done** — the GitHub Pages deploy
+  serves it at:
+
+  ```
+  https://bulyk47.github.io/dadglass/privacy.html
+  ```
+
+  That is the URL to paste into Play Console and App Store Connect. It is `public/privacy.html`,
+  a plain static page with no JavaScript, so a reviewer can always read it even if the app fails
+  to boot. It duplicates `PRIVACY.md` on purpose (one for the repo, one for the stores) and
+  `npm run audit` fails if the two ever drift apart on the contact address or the core claims.
 - Node + npm (installed). **Android Studio + JDK 17** for the Play build (you have it from Quillery).
 - For iOS: an **Apple Developer account ($99/yr)** and a **macOS build** (cloud Mac is fine — see Part 3).
 

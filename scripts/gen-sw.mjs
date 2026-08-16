@@ -45,6 +45,9 @@ const p = (rel) => BASE + (rel.startsWith("/") ? rel.slice(1) : rel);
 const core = [
   BASE,
   p("index.html"),
+  // The store-facing privacy policy: precached so it stays readable offline
+  // (the navigation handler would otherwise fall back to the app shell).
+  p("privacy.html"),
   p("manifest.webmanifest"),
   p("icon-192.png"),
   p("icon-512.png"),
