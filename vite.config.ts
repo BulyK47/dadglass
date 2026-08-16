@@ -23,7 +23,20 @@ if (contentDir === sampleContent) {
   console.log("\n[content] Using PLACEHOLDER content from src/content.sample\n");
 }
 
+/**
+ * Deploy base path.
+ *  • "/"           — native Capacitor builds and any root-hosted site (default)
+ *  • "/dadglass/"  — a GitHub Pages *project* page (set APP_BASE in CI)
+ * Everything that builds a URL at runtime goes through src/app/utils/assetUrl.ts,
+ * and the manifest/index.html use relative URLs, so both work unchanged.
+ */
+const base = process.env.APP_BASE || "/";
+
 export default defineConfig({
+  base,
+  // Always start from a clean dist: leftover hashed bundles from earlier builds
+  // would otherwise pile up and could be picked up by tooling.
+  build: { emptyOutDir: true },
   plugins: [react()],
   resolve: {
     alias: { "@content": contentDir },

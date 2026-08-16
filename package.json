@@ -17,7 +17,8 @@
     "cap:android": "npm run build && npx cap sync android && npx cap open android",
     "cap:ios": "npm run build && npx cap sync ios && npx cap open ios",
     "screenshots": "node scripts/gen-screenshots.mjs",
-    "feature-graphic": "node scripts/gen-feature-graphic.mjs"
+    "feature-graphic": "node scripts/gen-feature-graphic.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "dependencies": {
     "@capacitor/core": "^8.4.2",

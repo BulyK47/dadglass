@@ -13,6 +13,9 @@ createRoot(document.getElementById("root")!).render(
 // (skipped in dev to avoid interfering with Vite HMR).
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    // Registered relative to the deploy base so it works both at the site root
+    // (native builds / custom domain) and under a project path like /dadglass/.
+    const base = import.meta.env.BASE_URL || "/";
+    navigator.serviceWorker.register(`${base}sw.js`, { scope: base }).catch(() => {});
   });
 }

@@ -11,6 +11,7 @@ import {
   HurricaneGlass,
   PintGlass
 } from './glasses';
+import { assetUrl } from "../utils/assetUrl";
 
 interface VectorGlassProps {
   glassType: string;
@@ -58,7 +59,7 @@ export function VectorGlass({ glassType, fillPercent }: VectorGlassProps) {
 
 export function GlassAsset({ glassType, fillPercent, week }: VectorGlassProps) {
   const [imageFailed, setImageFailed] = useState(false);
-  const imageSrc = week ? `/assets/glasses/w${week}.webp` : "";
+  const imageSrc = week ? assetUrl(`assets/glasses/w${week}.webp`) : "";
 
   if (week && !imageFailed) {
     return (

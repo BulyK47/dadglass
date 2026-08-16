@@ -1,16 +1,19 @@
-        # Builds the app and publishes it to GitHub Pages.
+# Builds the app and publishes it to GitHub Pages.
 #
 # What this gives you:
 #   • a public HTTPS URL for the PRIVACY POLICY (both app stores require one)
 #   • the installable PWA that iPhone users can "Add to Home Screen" for free
 #
-# IMPORTANT — hosting path:
-# The app uses absolute paths (/assets, /sw.js, manifest scope "/"), so it must be
-# served from the ROOT of a domain. That means either:
-#   a) a user/organisation site repo named  <your-username>.github.io   (recommended, free)
-#   b) a custom domain pointed at the repo
-# A project page like  username.github.io/dadglass/  will NOT work without also
-# setting Vite's `base` and regenerating the service worker + manifest paths.
+# Hosting path:
+# This deploys to a GitHub Pages *project* page — https://<user>.github.io/dadglass/ —
+# so the app is built with `npm run build:pages` (base "/dadglass/"). Every runtime
+# URL goes through src/app/utils/assetUrl.ts and the manifest uses relative URLs,
+# so the same source also builds at the root for the native Capacitor apps
+# (plain `npm run build`, base "/").
+#
+# If you ever move to a custom domain or a <user>.github.io repo, set
+#   APP_BASE: "/"
+# in the build step below.
 #
 # Setup once: repo → Settings → Pages → Source = "GitHub Actions".
 name: Deploy to GitHub Pages
@@ -46,7 +49,9 @@ jobs:
       # the deployed demo has something to render.
       - run: npm run sample:assets
 
-      - run: npm run build
+      - run: npm run build:pages
+        env:
+          APP_BASE: /dadglass/
 
       - uses: actions/upload-pages-artifact@v3
         with:

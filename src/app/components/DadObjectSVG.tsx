@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { type DadObjectAssetId, type DadObjectType } from "../data/dadObjects";
 
+import { assetUrl } from "../utils/assetUrl";
 interface DadObjectProps {
   type: DadObjectType;
   assetId?: DadObjectAssetId;
@@ -29,7 +30,7 @@ function DadObjectFallback({ className, label = "" }: Pick<DadObjectProps, "clas
 
 export function DadObjectAsset({ imageFile, week, className, label = "" }: DadObjectProps) {
   const [failed, setFailed] = useState(false);
-  const src = imageFile ?? (week ? `/assets/dad-objects/w${week}.webp` : "");
+  const src = imageFile ?? (week ? assetUrl(`assets/dad-objects/w${week}.webp`) : "");
 
   if (!src || failed) {
     return <DadObjectFallback className={className} label={label} />;

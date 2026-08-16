@@ -16,32 +16,57 @@ if (!fs.existsSync(assetsDir)) {
   process.exit(1);
 }
 
-const assetFiles = fs.readdirSync(assetsDir);
-const js = assetFiles.find((f) => /^index-.*\.js$/.test(f));
-const css = assetFiles.find((f) => /^index-.*\.css$/.test(f));
+/*
+ * Take the bundle names from dist/index.html rather than by globbing
+ * dist/assets: if an earlier build left files behind, globbing can pick a stale
+ * hash and the service worker would then precache a bundle the app never loads.
+ * index.html is the source of truth for what actually gets requested.
+ */
+const indexHtml = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+const js = (indexHtml.match(/assets\/(index-[^"']+\.js)/) || [])[1];
+const css = (indexHtml.match(/assets\/(index-[^"']+\.css)/) || [])[1];
+
+if (!js) {
+  console.error("[gen-sw] could not find the JS bundle referenced by dist/index.html");
+  process.exit(1);
+}
 
 // Derive a stable per-build version from the hashed JS filename.
 const hashMatch = js && js.match(/index-([^.]+)\.js$/);
 const version = hashMatch ? hashMatch[1] : String(Date.now());
 
+// Deploy base ("/" for native + root hosting, "/dadglass/" for a GitHub Pages
+// project page). Must match vite.config.ts so the cached URLs actually match
+// what the browser requests.
+const rawBase = process.env.APP_BASE || "/";
+const BASE = rawBase.endsWith("/") ? rawBase : rawBase + "/";
+const p = (rel) => BASE + (rel.startsWith("/") ? rel.slice(1) : rel);
+
 const core = [
-  "/",
-  "/index.html",
-  "/manifest.webmanifest",
-  "/icon-192.png",
-  "/icon-512.png",
-  "/icon-maskable-512.png",
-  "/apple-touch-icon.png",
+  BASE,
+  p("index.html"),
+  p("manifest.webmanifest"),
+  p("icon-192.png"),
+  p("icon-512.png"),
+  p("icon-maskable-512.png"),
+  p("apple-touch-icon.png"),
 ];
-if (js) core.push(`/assets/${js}`);
-if (css) core.push(`/assets/${css}`);
+/*
+ * Precache every JS/CSS bundle at the root of dist/assets — not just the entry
+ * pair. Dynamic imports (the Capacitor plugins) are emitted as separate chunks,
+ * and a chunk that is missing from the cache would fail to load offline.
+ */
+for (const f of fs.readdirSync(assetsDir, { withFileTypes: true })) {
+  if (f.isDirectory()) continue;
+  if (/\.(js|css)$/.test(f.name)) core.push(p(`assets/${f.name}`));
+}
 
 // Precache the (now-small) week images so a fresh install works fully offline.
 for (const sub of ["baby", "glasses", "dad-objects"]) {
   const d = path.join(assetsDir, sub);
   if (!fs.existsSync(d)) continue;
   for (const f of fs.readdirSync(d)) {
-    if (f.toLowerCase().endsWith(".webp")) core.push(`/assets/${sub}/${f}`);
+    if (f.toLowerCase().endsWith(".webp")) core.push(p(`assets/${sub}/${f}`));
   }
 }
 
@@ -86,7 +111,7 @@ self.addEventListener("fetch", (event) => {
           }
           return res;
         })
-        .catch(() => caches.match(req).then((r) => r || caches.match("/index.html"))),
+        .catch(() => caches.match(req).then((r) => r || caches.match("${p("index.html")}"))),
     );
     return;
   }

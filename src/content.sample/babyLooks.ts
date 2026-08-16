@@ -1,12 +1,13 @@
 import type { BabyLook, BabyLookLanguage } from "../app/data/babyLooks";
 
+import { assetUrl } from "../app/utils/assetUrl";
 const makeBabyLook = (
   week: number,
   concept: Record<BabyLookLanguage, string>,
   visualFocus: Record<BabyLookLanguage, string>,
 ): BabyLook => ({
   week,
-  imagePath: `/assets/baby/aw${week}.webp`,
+  imagePath: assetUrl(`assets/baby/aw${week}.webp`),
   concept,
   visualFocus,
 });

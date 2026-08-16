@@ -1,3 +1,4 @@
+import { assetUrl } from "../utils/assetUrl";
 export type DadObjectType =
   | "watch"
   | "button"
@@ -77,7 +78,7 @@ export interface DadObjectInfo {
 export type RawDadObjectInfo = Omit<DadObjectInfo, "imageFile" | "variant">;
 
 export function dadObjectImageFile(week: number) {
-  return `/assets/dad-objects/w${week}.webp`;
+  return assetUrl(`assets/dad-objects/w${week}.webp`);
 }
 
 import { weekObjects } from "@content/dadObjects";
