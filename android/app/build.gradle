@@ -1,5 +1,22 @@
 apply plugin: 'com.android.application'
 
+/*
+ * Release signing.
+ *
+ * The upload key lives outside version control: android/key.properties holds the
+ * paths and passwords and is git-ignored, and scripts/make-keystore.ps1 is what
+ * creates both it and the .jks. Nothing secret is ever committed.
+ *
+ * When key.properties is absent — a fresh clone, or CI — the release build type
+ * simply stays unsigned instead of failing, so `gradlew assembleRelease` still
+ * works for anyone building the open-source project.
+ */
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
 android {
     namespace = "com.dadglass.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,8 +33,21 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
     buildTypes {
         release {
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
