@@ -165,7 +165,17 @@ const has512 = (man.icons || []).some((i) => i.sizes === "512x512");
 const hasMask = (man.icons || []).some((i) => (i.purpose || "").includes("maskable"));
 has512 ? OK("512x512 icon present") : FAIL("no 512x512 icon (store requirement)");
 hasMask ? OK("maskable icon present") : WARN("no maskable icon");
-for (const i of man.icons || []) fs.existsSync("public" + i.src) ? OK(`icon exists: ${i.src}`) : FAIL(`icon MISSING on disk: ${i.src}`);
+// Manifest URLs are relative ("./icon-192.png") so they resolve at any base;
+// map them back to their location in public/ before checking.
+for (const i of man.icons || []) {
+  const file = "public/" + String(i.src).replace(/^\.?\//, "");
+  fs.existsSync(file) ? OK(`icon exists: ${i.src}`) : FAIL(`icon MISSING on disk: ${i.src}`);
+}
+// A sub-path deploy breaks on absolute manifest URLs — keep them relative.
+const absManifestUrls = [man.start_url, man.scope, ...(man.icons || []).map((i) => i.src)].filter((u) => typeof u === "string" && u.startsWith("/"));
+absManifestUrls.length
+  ? FAIL(`manifest has absolute URLs (breaks sub-path hosting): ${absManifestUrls.join(", ")}`)
+  : OK("manifest URLs are relative (works at root and under a sub-path)");
 const idx = readAll("index.html");
 /rel="manifest"/.test(idx) ? OK("index.html links manifest") : FAIL("no manifest link");
 /apple-touch-icon/.test(idx) ? OK("apple-touch-icon set (needed for iOS install)") : FAIL("no apple-touch-icon — iOS home-screen icon will be a screenshot");
