@@ -97,8 +97,8 @@ const strings = {
     "onboarding.style.cta": "Build my dad dashboard",
     // Disclaimer
     "disclaimer.title": "A quick note about comparisons",
-    "disclaimer.body": "DadGlass uses glass and object comparisons as symbolic size references only. The app does not promote alcohol consumption, which should be avoided during pregnancy. For medical questions, always speak with a healthcare professional.",
-    "disclaimer.short": "Note: Glass and object comparisons are symbolic references only. Alcohol should be avoided during pregnancy. For medical questions, speak with a healthcare professional.",
+    "disclaimer.body": "DadGlass uses glasses and objects purely as size references, the same way other apps use fruit — and the milestone toasts are meant for whatever is in your glass. There is no known safe amount of alcohol in pregnancy: she should avoid it completely, and the simplest support you can give is not drinking either while this lasts. The app is informational; for any medical decision, speak with a doctor or midwife.",
+    "disclaimer.short": "Note: glasses and objects are size references only. There is no safe amount of alcohol in pregnancy — the easiest thing you can do is not drink either. For medical decisions, speak with a professional.",
     "disclaimer.cta": "I understand",
     // Journal
     "journal.title": "Dad Journal", "journal.subtitle": "Small notes now. Big memories later.",
@@ -212,8 +212,8 @@ const strings = {
     "onboarding.style.tone": "Ton preferat",
     "onboarding.style.cta": "Pregătește-mi aplicația",
     "disclaimer.title": "O notă despre comparații",
-    "disclaimer.body": "DadGlass folosește pahare și obiecte ca referințe simbolice de mărime. Aplicația nu promovează consumul de alcool, care trebuie evitat în timpul sarcinii. Pentru întrebări medicale, consultați un specialist.",
-    "disclaimer.short": "Notă: comparațiile cu pahare și obiecte sunt doar repere simbolice. Alcoolul trebuie evitat în sarcină. Pentru întrebări medicale, discutați cu un specialist.",
+    "disclaimer.body": "DadGlass folosește paharele și obiectele doar ca repere de mărime, la fel cum alte aplicații folosesc fructe — iar toasturile de etapă se închină cu ce ai tu în pahar. Nu există o cantitate sigură de alcool în sarcină: ea trebuie să îl evite complet, iar cel mai simplu sprijin pe care i-l poți da e să nu bei nici tu în perioada asta. Aplicația are scop informativ; pentru orice decizie medicală, discută cu un medic sau o moașă.",
+    "disclaimer.short": "Notă: paharele și obiectele sunt doar repere de mărime. Nu există o cantitate sigură de alcool în sarcină — cel mai simplu lucru pe care îl poți face e să nu bei nici tu. Pentru decizii medicale, discută cu un specialist.",
     "disclaimer.cta": "Am înțeles",
     "journal.title": "Jurnalul tatălui", "journal.subtitle": "Mici notițe acum. Amintiri mari mai târziu.",
     "journal.write": "Scrie notița săptămânii",

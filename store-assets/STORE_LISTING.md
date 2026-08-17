@@ -55,7 +55,7 @@ YOUR DATA STAYS YOURS
 No account. No servers. No tracking. No ads. Everything you write stays on your device, and you can delete all of it with one tap.
 
 ABOUT THE GLASS COMPARISONS
-The glasses are used purely as familiar size references, the same way other apps use fruit or vegetables. DadGlass does not promote drinking, and alcohol should be avoided during pregnancy.
+The glasses are familiar size references, the same way other apps use fruit or vegetables, and the milestone toasts are meant for whatever is in your glass. On the substance itself DadGlass is not neutral: there is no known safe amount of alcohol in pregnancy, she should avoid it completely, and one of the simplest forms of support the app asks of you is not drinking either while this lasts.
 ```
 
 ### Developer contact (shown publicly on the store page)
@@ -136,7 +136,7 @@ DATELE TALE RĂMÂN ALE TALE
 Fără cont. Fără servere. Fără urmărire. Fără reclame. Tot ce scrii rămâne pe dispozitivul tău și poți șterge totul cu o singură apăsare.
 
 DESPRE COMPARAȚIILE CU PAHARE
-Paharele sunt folosite doar ca repere de mărime cunoscute, la fel cum alte aplicații folosesc fructe sau legume. DadGlass nu promovează consumul de alcool, iar alcoolul trebuie evitat în timpul sarcinii.
+Paharele sunt repere de mărime cunoscute, la fel cum alte aplicații folosesc fructe sau legume, iar toasturile de etapă se închină cu ce ai tu în pahar. În privința alcoolului însă, DadGlass nu e neutră: nu există o cantitate sigură în sarcină, ea trebuie să îl evite complet, iar unul dintre cele mai simple gesturi de sprijin pe care aplicația ți le cere este să nu bei nici tu în perioada asta.
 ```
 
 ---

@@ -1,4 +1,4 @@
-# DadGlass 🍺👶
+# DadGlass 👶
 
 A calm, practical, **week-by-week pregnancy guide built for dads** — the size of the baby
 this week (as a familiar glass or everyday object), what your partner may be feeling, one
@@ -8,6 +8,10 @@ journal. **Bilingual (English / Română), fully offline, installable (PWA).**
 > ⚕️ **Not medical advice.** DadGlass is for information and support only. It is **not a
 > medical device** and does not diagnose, treat, or replace professional care. Always
 > consult a doctor or midwife. See `PRIVACY.md` and `CONTENT_LICENSE.md`.
+>
+> 🍷 **On the glasses.** They are size references, the way other apps use fruit. On alcohol
+> itself the app is not neutral: there is no known safe amount in pregnancy, and one of the
+> concrete things DadGlass asks of the reader is not to drink either while it lasts.
 
 ## Tech
 Vite + React 18 + TypeScript + Tailwind. No backend — all data is stored **on-device**

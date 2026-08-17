@@ -588,6 +588,14 @@ function EmergencyCard() {
           </li>
         ))}
       </ul>
+      {/* The list is a prompt to call, never a rule for when not to. Someone reads
+          this at 3am and decides whether to wake a midwife; if their symptom is
+          not on it, the absence must not read as reassurance. */}
+      <p className="text-[12px] text-red-800 leading-relaxed mt-3 pt-3 border-t border-red-200">
+        {ro
+          ? "Lista nu e completă. Orice altceva vă îngrijorează — sunați oricum."
+          : "This list isn't exhaustive. Anything else that worries you — call anyway."}
+      </p>
     </div>
   );
 }

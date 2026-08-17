@@ -71,3 +71,7 @@ APP_WORKFLOW.md
 # to keep, so only the images are ignored.
 store-assets/screenshots/
 store-assets/feature-graphic-*.png
+
+# Build artefacts of the store listing (regenerate, do not commit)
+*.aab
+store-assets/app-icon-512.png
