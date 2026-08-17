@@ -3,6 +3,13 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "license": "MPL-2.0",
+  "author": "DadGlass",
+  "description": "A calm, practical week-by-week pregnancy guide built for dads. Bilingual, offline-first.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BulyK47/dadglass.git"
+  },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "dev:phone": "vite --host 127.0.0.1 --port 5174 --strictPort",

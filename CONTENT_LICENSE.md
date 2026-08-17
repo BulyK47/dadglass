@@ -8,10 +8,17 @@ configuration, and the size-comparison rendering system) is licensed under the
 **Mozilla Public License 2.0** — see `LICENSE`. You may use, modify, and redistribute
 it (including commercially); modifications to MPL-covered files must remain open.
 
-## Content — © the DadGlass authors, all rights reserved
-The following are **original creative/editorial works and are NOT covered by the MPL**.
-They are **© the DadGlass authors. All rights reserved.** They are **not** licensed for
-reuse, redistribution, or the creation of derivative works:
+## Content — reserved to the DadGlass authors, not covered by the MPL
+The text and illustrations were **produced with AI assistance, under the direction and
+editorial curation of the DadGlass authors**: the concept, the week-by-week structure, what
+belongs in it and what does not, the tone, the Romanian phrasing, and the review of the
+medical content against published guidance. That selection, arrangement and editorial work
+is the authors'.
+
+Copyright in individual AI-generated images and passages is unsettled and varies by
+jurisdiction, so this is a statement of what is reserved rather than a claim that every
+asset is independently protected. Either way the following are **not covered by the MPL**
+and are **not** licensed for reuse, redistribution, or the creation of derivative works:
 
 - The weekly pregnancy guide content: `src/content/weeks.ts`
 - The Romanian translations of that content: `src/content/localized.ts`

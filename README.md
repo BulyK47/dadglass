@@ -40,10 +40,12 @@ npm run cap:android    # build + sync + open the Android project
 - `src/app/data` + `src/app/utils/localizedWeekContent.ts` — **content layer** (see below)
 - `scripts/` — image optimizer (`optimize-images.mjs`) + service-worker generator (`gen-sw.mjs`)
 
-## Two licenses: open code, proprietary content
+## Two licenses: open code, reserved content
 - **Code** → **MPL-2.0** (`LICENSE`). Use it, learn from it, build on it.
 - **Content** (the weekly guide copy, its Romanian translations, and the illustrations) →
-  **© the DadGlass authors, all rights reserved** (`CONTENT_LICENSE.md`).
+  **reserved to the DadGlass authors, not licensed for reuse** (`CONTENT_LICENSE.md`).
+  It was produced with AI assistance under the authors' direction and editorial curation,
+  and it is not part of this repository.
 
 ### How the split works
 The app reads all of its content through the **`@content` alias**:
