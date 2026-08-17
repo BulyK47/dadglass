@@ -22,6 +22,24 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    /*
+     * Optional escape hatch for cloud-synced checkouts.
+     *
+     * When the project lives inside OneDrive (or Dropbox, or iCloud Drive), the
+     * sync client turns idle build intermediates into cloud placeholders. Gradle
+     * then dies mid-build with "Cannot snapshot <file>: not a regular file",
+     * which says nothing about the real cause. Marking the files "always keep on
+     * this device" helps until the next new file appears, so it is not a fix.
+     *
+     * Set `dadglassBuildDir` in ~/.gradle/gradle.properties (a machine-level
+     * file, never committed) to move every module's build output somewhere the
+     * sync client does not touch. Without the property nothing changes, so a
+     * fresh clone builds exactly as before.
+     */
+    if (project.hasProperty("dadglassBuildDir")) {
+        layout.buildDirectory = new File(dadglassBuildDir as String, project.name)
+    }
 }
 
 task clean(type: Delete) {
