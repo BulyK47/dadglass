@@ -65,7 +65,7 @@ export function ProfileTab({ onOpenJournal, onOpenFeature, onOpenInstall }: Prof
   return (
     <div>
       {/* Header */}
-      <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 pt-5 pb-5 sticky top-0 z-10">
+      <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 pt-5 pb-5 pt-safe sticky top-0 z-10">
         <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.08em] mb-0.5">
           {t("nav.profile")}
         </div>

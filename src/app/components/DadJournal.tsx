@@ -3,6 +3,7 @@ import { Plus, ChevronDown, ChevronLeft, ChevronUp, Trash2 } from "lucide-react"
 import { useApp } from "../context/AppContext";
 import { JournalEntry } from "../context/AppContext";
 import { saveTextFile } from "../utils/saveFile";
+import { isNative } from "../utils/platform";
 
 interface DadJournalProps {
   onClose: () => void;
@@ -61,7 +62,7 @@ const JOURNAL_COPY = {
     pastEntries: "Past entries",
     noEntries: "No entries yet. Write your first one above.",
     deviceOnly: "Your journal stays on this device only.",
-    exportSave: "Save journal",
+    exportSave: "Save as web page",
     exportPrint: "Print / PDF",
     exportEmpty: "Write at least one entry to export.",
     docTitle: "Pregnancy Journal",
@@ -76,7 +77,7 @@ const JOURNAL_COPY = {
     pastEntries: "Notițe anterioare",
     noEntries: "Nu există notițe încă. Scrie prima notiță mai sus.",
     deviceOnly: "Jurnalul rămâne doar pe acest dispozitiv.",
-    exportSave: "Salvează jurnalul",
+    exportSave: "Salvează ca pagină web",
     exportPrint: "Printează / PDF",
     exportEmpty: "Scrie cel puțin o notiță pentru a exporta.",
     docTitle: "Jurnalul sarcinii",
@@ -388,13 +389,21 @@ export function DadJournal({ onClose }: DadJournalProps) {
             >
               {copy.exportSave}
             </button>
-            <button
-              onClick={() => printJournal(sorted, language, copy.docTitle, copy.weekLabel)}
-              disabled={journalEntries.length === 0}
-              className="flex-1 min-h-[44px] rounded-xl border border-slate-300 bg-white text-slate-700 text-[13px] font-semibold disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition-transform"
-            >
-              {copy.exportPrint}
-            </button>
+            {/*
+              Web only. Android's WebView does not implement window.print() —
+              the call is a no-op, so on the phone this button looked broken.
+              Saving covers the same need there: the file goes to the share
+              sheet, and printing from the app the user opens it in works.
+            */}
+            {!isNative() && (
+              <button
+                onClick={() => printJournal(sorted, language, copy.docTitle, copy.weekLabel)}
+                disabled={journalEntries.length === 0}
+                className="flex-1 min-h-[44px] rounded-xl border border-slate-300 bg-white text-slate-700 text-[13px] font-semibold disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition-transform"
+              >
+                {copy.exportPrint}
+              </button>
+            )}
           </div>
           {journalEntries.length === 0 && (
             <p className="text-center text-[11px] text-slate-400">{copy.exportEmpty}</p>

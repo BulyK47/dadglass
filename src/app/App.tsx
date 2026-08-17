@@ -35,7 +35,7 @@ function AppInner() {
               <MobileHeader week={currentWeek} onWeekChange={setCurrentWeek} />
             )}
 
-            <main className="pb-24">
+            <main className="pb-nav">
               {activeTab === "home" && (
                 <div className="pt-4">
                   <InstallBanner onOpen={() => setShowInstall(true)} />

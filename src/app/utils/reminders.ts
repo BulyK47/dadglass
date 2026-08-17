@@ -95,12 +95,24 @@ export async function enableNotifications(title: string, body: string): Promise<
         perm = await LocalNotifications.requestPermissions();
       }
       if (perm.display !== "granted") return "denied";
+      /*
+       * Deliver immediately — no `schedule` block.
+       *
+       * Scheduling even three seconds out routes the notification through
+       * AlarmManager, and from Android 12 that needs SCHEDULE_EXACT_ALARM,
+       * which this app does not hold (it is a restricted permission meant for
+       * alarm clocks and calendars, and asking for it would invite a Play
+       * policy review we do not need). The call then failed, the catch below
+       * swallowed it, and the button appeared to do nothing.
+       *
+       * Without a schedule the plugin posts straight to the notification
+       * manager, which needs no alarm permission at all.
+       */
       await LocalNotifications.schedule({
         notifications: [{
           id: Date.now() % 100000,
           title,
           body,
-          schedule: { at: new Date(Date.now() + 3000) },
         }],
       });
       return "granted";

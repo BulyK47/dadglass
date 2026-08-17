@@ -21,6 +21,39 @@ import { usePersistedSet, usePersistedState } from "../hooks/usePersisted";
 import { cancelNativeReminders, downloadICS, enableNotifications, parseDateLoose, scheduleNativeReminders, type NotificationOutcome } from "../utils/reminders";
 import { isNative } from "../utils/platform";
 
+/*
+ * Calendar export reads differently on each platform, and saying "download"
+ * on a phone left people holding a file with no idea what to do next: in the
+ * app the .ics goes to the system share sheet, where the calendar app has to
+ * be picked, while on the web it is an ordinary download.
+ */
+function calendarButtonLabel(ro: boolean): string {
+  if (isNative()) return ro ? "Adaugă în calendar" : "Add to calendar";
+  return ro ? "Descarcă fișier .ics" : "Download .ics file";
+}
+
+function calendarSubtitle(ro: boolean): string {
+  if (isNative()) {
+    return ro
+      ? "Alege aplicația ta de calendar din meniul care se deschide."
+      : "Pick your calendar app from the sheet that opens.";
+  }
+  return ro
+    ? "Descarcă un fișier .ics pentru aplicația ta de calendar."
+    : "Download an .ics file for your calendar app.";
+}
+
+function calendarDoneHint(ro: boolean): string {
+  if (isNative()) {
+    return ro
+      ? "Alege aplicația de calendar din meniul de partajare ca să adaugi evenimentele."
+      : "Choose your calendar app in the share sheet to add the events.";
+  }
+  return ro
+    ? "Fișier de calendar (.ics) descărcat. Deschide-l ca să adaugi evenimentele."
+    : "Calendar file (.ics) downloaded. Open it to add the events.";
+}
+
 export type FeatureKey =
   | "appointment"
   | "readiness"
@@ -248,7 +281,11 @@ function AppointmentCopilot({ onClose }: { onClose: () => void }) {
       </Card>
 
       <Card>
-        <SectionTitle icon={CalendarPlus} title={ro ? "Adaugă în calendar" : "Add to calendar"} subtitle={ro ? "Descarcă un fișier .ics pentru aplicația ta de calendar." : "Download an .ics file for your calendar app."} />
+        <SectionTitle
+          icon={CalendarPlus}
+          title={ro ? "Adaugă în calendar" : "Add to calendar"}
+          subtitle={calendarSubtitle(ro)}
+        />
         <input
           type="date"
           value={calDate}
@@ -261,7 +298,7 @@ function AppointmentCopilot({ onClose }: { onClose: () => void }) {
           className="w-full min-h-[44px] rounded-xl bg-slate-900 text-white text-[14px] font-semibold flex items-center justify-center gap-2 disabled:opacity-40"
         >
           <CalendarPlus className="w-4 h-4" />
-          {ro ? "Descarcă fișier .ics" : "Download .ics file"}
+          {calendarButtonLabel(ro)}
         </button>
       </Card>
     </Shell>
@@ -661,10 +698,10 @@ function SupportReminders({ onClose }: { onClose: () => void }) {
           className="w-full min-h-[44px] rounded-xl bg-slate-900 text-white text-[14px] font-semibold flex items-center justify-center gap-2 disabled:opacity-40"
         >
           <CalendarPlus className="w-4 h-4" />
-          {ro ? "Adaugă în calendar (.ics)" : "Add to calendar (.ics)"}
+          {calendarButtonLabel(ro)}
         </button>
         {downloaded && (
-          <p className="text-[12px] text-emerald-700 mt-2">{ro ? "Fișier de calendar (.ics) descărcat. Deschide-l ca să adaugi evenimentele." : "Calendar file (.ics) downloaded. Open it to add the events."}</p>
+          <p className="text-[12px] text-emerald-700 mt-2">{calendarDoneHint(ro)}</p>
         )}
         {chosen.length === 0 && (
           <p className="text-[12px] text-slate-400 mt-2">{ro ? "Bifează cel puțin un memento pentru exportul în calendar." : "Tick at least one reminder to enable calendar export."}</p>

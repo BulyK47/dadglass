@@ -104,7 +104,7 @@ function WeekDetailScreen({ weekData, onBack, onSetCurrent }: {
 
   return (
     <div>
-      <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 py-5 sticky top-0 z-10">
+      <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 py-5 pt-safe sticky top-0 z-10">
         <button onClick={onBack} className="inline-flex items-center gap-2 min-h-[44px] text-[13px] font-semibold text-slate-600 mb-3">
           <ChevronLeft className="w-4 h-4" />
           {t("nav.journey")}
@@ -250,7 +250,7 @@ export function WeekTab() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 py-5 sticky top-0 z-10">
+      <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 py-5 pt-safe sticky top-0 z-10">
         <div className="flex items-start justify-between mb-1">
           <div>
             <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.08em] mb-0.5">

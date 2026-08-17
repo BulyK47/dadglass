@@ -28,6 +28,37 @@ body {
     sans-serif;
 }
 
+/*
+ * Safe areas.
+ *
+ * index.html sets `viewport-fit=cover`, so on a phone the WebView draws the
+ * full height of the screen — underneath the status bar / notch at the top and
+ * underneath the gesture or button bar at the bottom. Nothing was compensating
+ * for that, so the notch sat on the week number and the phone's own navigation
+ * buttons overlapped the tab bar.
+ *
+ * `pb-safe` was already being used on the tab bar, but it is not a real
+ * Tailwind class and this project has no safe-area plugin, so it silently
+ * applied nothing.
+ *
+ * These are declared after `@tailwind utilities` so they win over the `py-5` /
+ * `pb-*` utilities they are combined with, and each keeps the spacing the
+ * element had before, plus the inset. `env()` resolves to 0 wherever there is
+ * no inset (desktop, older Android), so the web build is unaffected.
+ */
+.pt-safe {
+  padding-top: calc(1.25rem + env(safe-area-inset-top, 0px));
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Scroll clearance for the fixed tab bar: its 4rem height plus the inset. */
+.pb-nav {
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+}
+
 .scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;
