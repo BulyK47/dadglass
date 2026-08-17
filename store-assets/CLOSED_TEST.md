@@ -1,0 +1,82 @@
+# Closed test — copy & paste
+
+Everything the Play Console asks for during the 14-day closed test, plus the
+message to send testers.
+
+---
+
+## Release notes (Play asks for these on every release)
+
+Play calls them "What's new". Max 500 characters per language.
+
+### English
+```
+First closed test of DadGlass.
+
+Everything is here: the week-by-week guide, the size comparisons, the 51-task checklist, the hospital bag list, the appointment co-pilot and the private journal. Fully bilingual and fully offline — no account, no servers, nothing leaves your phone.
+
+What we most want to know: does anything feel confusing, wrong, or off-tone? And if your partner sees it, what does she say?
+```
+
+### Română
+```
+Primul test închis DadGlass.
+
+Tot ce trebuie e aici: ghidul săptămână cu săptămână, comparațiile de mărime, checklistul cu 51 de sarcini, lista pentru geanta de spital, copilotul de programări și jurnalul privat. Complet bilingv și complet offline — fără cont, fără servere, nimic nu pleacă de pe telefon.
+
+Ce ne interesează cel mai mult: ți se pare ceva neclar, greșit sau nepotrivit ca ton? Și dacă îl vede partenera ta, ce spune?
+```
+
+---
+
+## Message to send testers
+
+Being on the tester list is NOT enough — each person must open the opt-in link
+and accept, then keep the app installed for the whole 14 days. Say so plainly.
+
+### English
+```
+Hi — I built a pregnancy app for dads and I need 14 days of testing before Google will let me publish it.
+
+What I need from you:
+1. Open this link on your Android phone and tap "Become a tester": [OPT-IN LINK]
+2. Install DadGlass from the Play link that appears
+3. Leave it installed for two weeks — that's the part Google actually counts
+
+Opening it once and having a look is plenty. If anything strikes you as confusing or off, tell me — that's the useful part.
+
+Thanks.
+```
+
+### Română
+```
+Salut — am făcut o aplicație de sarcină pentru tați și am nevoie de 14 zile de testare până îmi dă Google voie să o public.
+
+Ce am nevoie de la tine:
+1. Deschide linkul ăsta pe telefonul Android și apasă „Become a tester": [LINK OPT-IN]
+2. Instalează DadGlass din linkul de Play care apare
+3. Las-o instalată două săptămâni — asta e partea pe care o numără Google
+
+E suficient să o deschizi o dată și să te uiți prin ea. Dacă ți se pare ceva neclar sau nepotrivit, spune-mi — aia e partea utilă.
+
+Mersi.
+```
+
+---
+
+## The question worth asking
+
+If any tester has a partner, ask exactly this and write down the answer:
+
+> **"What did she say about the glasses?"**
+
+It is the one thing about this app that cannot be reasoned out in advance, and
+twelve honest answers settle it before launch rather than in the reviews.
+
+---
+
+## Applying for production access (after the 14 days)
+
+Google asks, in writing, how the closed test went: how testers were recruited,
+what feedback came back, what changed because of it. Keep notes as they arrive —
+answering that form is much harder reconstructed from memory a fortnight later.
