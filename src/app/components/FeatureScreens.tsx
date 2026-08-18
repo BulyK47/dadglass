@@ -22,10 +22,9 @@ import { cancelNativeReminders, downloadICS, enableNotifications, parseDateLoose
 import { isNative } from "../utils/platform";
 
 /*
- * Calendar export reads differently on each platform, and saying "download"
- * on a phone left people holding a file with no idea what to do next: in the
- * app the .ics goes to the system share sheet, where the calendar app has to
- * be picked, while on the web it is an ordinary download.
+ * Calendar export reads differently on each platform, and "download" was simply
+ * wrong on a phone: there the .ics is opened by the calendar app, while on the
+ * web it lands in the downloads folder.
  */
 function calendarButtonLabel(ro: boolean): string {
   if (isNative()) return ro ? "Adaugă în calendar" : "Add to calendar";
@@ -35,8 +34,8 @@ function calendarButtonLabel(ro: boolean): string {
 function calendarSubtitle(ro: boolean): string {
   if (isNative()) {
     return ro
-      ? "Alege aplicația ta de calendar din meniul care se deschide."
-      : "Pick your calendar app from the sheet that opens.";
+      ? "Se deschide în aplicația ta de calendar, cu evenimentele gata de salvat."
+      : "Opens in your calendar app with the events ready to save.";
   }
   return ro
     ? "Descarcă un fișier .ics pentru aplicația ta de calendar."
@@ -46,8 +45,8 @@ function calendarSubtitle(ro: boolean): string {
 function calendarDoneHint(ro: boolean): string {
   if (isNative()) {
     return ro
-      ? "Alege aplicația de calendar din meniul de partajare ca să adaugi evenimentele."
-      : "Choose your calendar app in the share sheet to add the events.";
+      ? "Trimis către aplicația ta de calendar. Confirmă acolo ca să salvezi evenimentele."
+      : "Handed to your calendar app. Confirm there to save the events.";
   }
   return ro
     ? "Fișier de calendar (.ics) descărcat. Deschide-l ca să adaugi evenimentele."
@@ -300,6 +299,11 @@ function AppointmentCopilot({ onClose }: { onClose: () => void }) {
           <CalendarPlus className="w-4 h-4" />
           {calendarButtonLabel(ro)}
         </button>
+        {!calDate && (
+          <p className="text-[12px] text-slate-400 mt-2">
+            {ro ? "Alege întâi data programării." : "Pick the appointment date first."}
+          </p>
+        )}
       </Card>
     </Shell>
   );

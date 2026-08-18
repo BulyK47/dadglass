@@ -6,7 +6,7 @@
  */
 
 import { isNative } from "./platform";
-import { saveTextFile } from "./saveFile";
+import { openTextFile } from "./saveFile";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -67,7 +67,9 @@ export function buildICS(events: CalendarEvent[]): string {
 
 export function downloadICS(filename: string, events: CalendarEvent[]) {
   const name = filename.endsWith(".ics") ? filename : `${filename}.ics`;
-  void saveTextFile(name, buildICS(events), "text/calendar;charset=utf-8");
+  // openTextFile, not saveTextFile: a calendar file has to reach an app that
+  // can open it. The share sheet only lists apps that can send it somewhere.
+  void openTextFile(name, buildICS(events), "text/calendar");
 }
 
 /** Parse a free-text or ISO date; returns a valid Date or null. */
