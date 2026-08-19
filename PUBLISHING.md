@@ -18,6 +18,31 @@ Sources cited inline; verify against official docs before each submission (store
 
 ---
 
+## Health apps declaration — read this before changing it
+
+The Play Console asks which health features the app offers. The form splits them
+into a "Health and fitness" group and a "Medical" group, and **anything ticked in
+the Medical group classifies the app as a Medical app, which Google only allows
+organization accounts to publish.** A personal account gets the release rejected
+under Play Console Requirements, with a message that names neither the checkbox
+nor the group.
+
+That is what happened here, twice: first with four Medical boxes ticked, then
+with only "Reproductive and sexual health". Being a pregnancy app is enough.
+
+The declaration that was accepted is **"My app does not have any health
+features"**, and Google's own guidance is what settles it: declare none *if the
+app does not track any health metrics*. This one does not. Everything it stores
+is names, a due date, the derived week, checklist state, free-text notes and a
+journal. The weight and length shown each week are fixed editorial content —
+identical for every user at week 31 — not a measurement of anyone.
+
+So the test is the app's **function**, not its subject. If a future version ever
+records a symptom, a weight, a blood pressure or a kick count, that stops being
+true and the declaration has to change with it.
+
+---
+
 ## Prerequisites
 - A public **privacy policy URL** (both stores require it). **Done** — the GitHub Pages deploy
   serves it at:
