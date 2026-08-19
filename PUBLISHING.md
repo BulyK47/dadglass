@@ -76,9 +76,8 @@ You already cleared the account gates for Quillery (one-time **$25** fee; the po
    npm run cap:android        # = vite build + cap sync android + cap open android
    ```
    This opens Android Studio on the generated `android/` project with your web app bundled in.
-2. **Set target API level 35 (Android 15)** — required for new uploads in 2025-2026. Capacitor 8
-   already targets a recent SDK; confirm `compileSdkVersion`/`targetSdkVersion = 35` in
-   `android/variables.gradle`.
+2. **Target SDK** — `android/variables.gradle` already sets `compileSdkVersion` and
+   `targetSdkVersion` to **36**, which is what the accepted release shipped with.
 3. **App icon / name:** replace the default launcher icons (Android Studio → res → mipmap, or use
    `@capacitor/assets` to generate from your icon) and confirm the app label = "DadGlass".
 4. **Signing:** in Android Studio, Build → Generate Signed Bundle → **create/choose an upload
@@ -90,8 +89,9 @@ You already cleared the account gates for Quillery (one-time **$25** fee; the po
 6. **Mandatory forms:**
    - **Data safety:** all data on-device, nothing transmitted → **"No data collected/shared."**
      (Still must submit the form. Confirm no analytics SDK — there is none.)
-   - **Health apps declaration** (App content → Health apps): pregnancy = *Reproductive & Sexual
-     Health* → declare the health feature (do NOT pick "no health features").
+   - **Health apps declaration** (App content → Health apps): **"My app does not have any
+     health features"** — see the section above. Ticking anything in the Medical group,
+     *Reproductive & Sexual Health included*, gets a personal account rejected.
    - **Store description:** put the **medical disclaimer in the first paragraph**
      ("not a medical device; does not diagnose/treat; consult a healthcare professional").
    - **Privacy policy URL** (App content → Privacy policy).
