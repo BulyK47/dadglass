@@ -42,11 +42,19 @@ function ActionRow({ icon: Icon, title, subtitle, onClick }: {
   );
 }
 
+const TONES = [
+  { id: "Calm", en: "Calm", ro: "Calm" },
+  { id: "Direct", en: "Direct", ro: "Direct" },
+  { id: "Warm", en: "Warm", ro: "Cald" },
+  { id: "Light humor", en: "Light humor", ro: "Umor ușor" },
+];
+
 export function ProfileTab({ onOpenJournal, onOpenFeature, onOpenInstall }: ProfileTabProps) {
   const {
     profile, updateProfile, currentWeek, setCurrentWeek,
     language, setLanguage, units, setUnits,
     comparisonMode, setComparisonMode, resetAllData, t,
+    dadStyle, updateDadStyle,
   } = useApp();
 
   const calculatedWeek = weekFromDueDate(profile.dueDate);
@@ -276,6 +284,41 @@ export function ProfileTab({ onOpenJournal, onOpenFeature, onOpenInstall }: Prof
                     }`}
                   >
                     {mode === "glass" ? t("profile.glass") : t("profile.dadObject")}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/*
+              The tone was chosen once during onboarding and could not be
+              changed afterwards, even though it is the only answer from that
+              step the app actually uses: it sets the default voice of the
+              weekly message for her.
+            */}
+            <div className="bg-white rounded-[1.5rem] border border-slate-200 shadow-sm p-5">
+              <div className="flex items-center gap-2 mb-1">
+                <MessageCircle className="w-4 h-4 text-slate-500" strokeWidth={2} />
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.08em]">
+                  {t("profile.tone")}
+                </span>
+              </div>
+              <p className="text-[12px] text-slate-500 leading-relaxed mb-3">
+                {language === "ro"
+                  ? "Dă tonul implicit al mesajului săptămânal pentru ea."
+                  : "Sets the default voice of the weekly message for her."}
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {TONES.map((tone) => (
+                  <button
+                    key={tone.id}
+                    onClick={() => updateDadStyle({ tone: dadStyle.tone === tone.id ? "" : tone.id })}
+                    className={`min-h-[44px] rounded-xl text-[13px] font-semibold border transition-all ${
+                      dadStyle.tone === tone.id
+                        ? "bg-slate-900 text-white border-slate-900"
+                        : "bg-white text-slate-600 border-slate-200"
+                    }`}
+                  >
+                    {language === "ro" ? tone.ro : tone.en}
                   </button>
                 ))}
               </div>

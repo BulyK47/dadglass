@@ -6,21 +6,6 @@ import { weekFromDueDate } from "../utils/dueDate";
 type Step = 1 | 2 | 3;
 
 // id is the stable, language-independent value stored in the profile; en/ro are display labels.
-const PRIORITIES = [
-  { id: "Practical checklists", en: "Practical checklists", ro: "Liste practice" },
-  { id: "Appointment preparation", en: "Appointment preparation", ro: "Pregătire pentru programări" },
-  { id: "Partner support tips", en: "Partner support tips", ro: "Sfaturi de sprijin pentru parteneră" },
-  { id: "Birth preparation", en: "Birth preparation", ro: "Pregătire pentru naștere" },
-  { id: "Mental health support", en: "Mental health support", ro: "Sprijin pentru sănătatea mentală" },
-  { id: "Postpartum preparation", en: "Postpartum preparation", ro: "Pregătire postpartum" },
-];
-const MOODS = [
-  { id: "Excited", en: "Excited", ro: "Entuziasmat" },
-  { id: "Nervous", en: "Nervous", ro: "Neliniștit" },
-  { id: "Overwhelmed", en: "Overwhelmed", ro: "Copleșit" },
-  { id: "Not sure yet", en: "Not sure yet", ro: "Încă nu știu" },
-  { id: "Ready to learn", en: "Ready to learn", ro: "Gata să învăț" },
-];
 const TONES = [
   { id: "Calm", en: "Calm", ro: "Calm" },
   { id: "Direct", en: "Direct", ro: "Direct" },
@@ -58,18 +43,12 @@ export function OnboardingFlow() {
   const [step, setStep] = useState<Step>(1);
   const [accepted, setAccepted] = useState(false);
   const [localProfile, setLocalProfile] = useState({ dadName: "", partnerName: "", babyNickname: "", dueDate: "", firstBaby: "" as "" | "yes" | "no" | "prefer-not" });
-  const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
-  const [selectedMood, setSelectedMood] = useState("");
   const [selectedTone, setSelectedTone] = useState("");
   const [manualWeek, setManualWeek] = useState<number | null>(4);
 
-  const togglePriority = (p: string) => {
-    setSelectedPriorities(prev => prev.includes(p) ? prev.filter(x => x !== p) : [...prev, p]);
-  };
-
   const handleFinish = () => {
     updateProfile(localProfile);
-    updateDadStyle({ priorities: selectedPriorities, mood: selectedMood, tone: selectedTone });
+    updateDadStyle({ tone: selectedTone });
     // Due date takes precedence when set; otherwise use the manual week stepper.
     const week = weekFromDueDate(localProfile.dueDate) ?? manualWeek ?? 4;
     setCurrentWeek(week);
@@ -291,27 +270,13 @@ export function OnboardingFlow() {
           </h2>
 
           <div className="space-y-8 mb-auto">
-            {/* Priorities */}
-            <div>
-              <div className="flex flex-wrap gap-2">
-                {PRIORITIES.map(p => (
-                  <SelectChip key={p.id} label={language === "ro" ? p.ro : p.en} selected={selectedPriorities.includes(p.id)} onToggle={() => togglePriority(p.id)} />
-                ))}
-              </div>
-            </div>
-
-            {/* Mood */}
-            <div>
-              <label className="text-[12px] font-semibold text-slate-500 uppercase tracking-[0.08em] block mb-3">
-                {t("onboarding.style.mood")}
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {MOODS.map(m => (
-                  <SelectChip key={m.id} label={language === "ro" ? m.ro : m.en} selected={selectedMood === m.id} onToggle={() => setSelectedMood(m.id === selectedMood ? "" : m.id)} />
-                ))}
-              </div>
-            </div>
-
+            {/*
+              Only the tone is asked for now. Two more questions used to sit
+              here — "what do you want most from the app" and "how do you feel
+              right now" — and neither answer was ever read anywhere. Asking
+              them made the app promise a personalisation it did not perform.
+              Ask again when something actually consumes the answer.
+            */}
             {/* Tone */}
             <div>
               <label className="text-[12px] font-semibold text-slate-500 uppercase tracking-[0.08em] block mb-3">

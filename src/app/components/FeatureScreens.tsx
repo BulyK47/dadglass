@@ -53,6 +53,21 @@ function calendarDoneHint(ro: boolean): string {
     : "Calendar file (.ics) downloaded. Open it to add the events.";
 }
 
+/** Put a "HH:MM" wall-clock time onto a given day. Blank or malformed -> 18:00. */
+function atTime(day: Date, hhmm: string): Date {
+  const [h, m] = (hhmm || "").split(":").map(Number);
+  const d = new Date(day);
+  d.setHours(Number.isFinite(h) ? h : 18, Number.isFinite(m) ? m : 0, 0, 0);
+  return d;
+}
+
+/** Today at the chosen time, or tomorrow if that moment has already passed. */
+function nextOccurrence(hhmm: string): Date {
+  const d = atTime(new Date(), hhmm);
+  if (d <= new Date()) d.setDate(d.getDate() + 1);
+  return d;
+}
+
 export type FeatureKey =
   | "appointment"
   | "readiness"
@@ -586,6 +601,7 @@ function SupportReminders({ onClose }: { onClose: () => void }) {
   const ro = language === "ro";
   const [frequency, setFrequency] = usePersistedState<string>("dg_reminders_freq", "Weekly");
   const [reminderDate, setReminderDate] = usePersistedState<string>("dg_reminders_date", "");
+  const [reminderTime, setReminderTime] = usePersistedState<string>("dg_reminders_time", "18:00");
   const selected = usePersistedSet("dg_reminders_sel");
   const [notif, setNotif] = useState<NotificationOutcome | null>(null);
   const [downloaded, setDownloaded] = useState(false);
@@ -609,7 +625,7 @@ function SupportReminders({ onClose }: { onClose: () => void }) {
         return;
       }
       const at = frequency === "Date" ? parseDateLoose(reminderDate) : null;
-      const when = at ?? (() => { const d = new Date(); d.setHours(18, 0, 0, 0); if (d <= new Date()) d.setDate(d.getDate() + 1); return d; })();
+      const when = at ? atTime(at, reminderTime) : nextOccurrence(reminderTime);
       const repeat = frequency === "Daily" ? "daily" : frequency === "Weekly" ? "weekly" : "none";
       await cancelNativeReminders();
       const n = await scheduleNativeReminders(
@@ -627,12 +643,14 @@ function SupportReminders({ onClose }: { onClose: () => void }) {
     if (frequency === "Date") {
       const d = parseDateLoose(reminderDate);
       if (!d) return;
-      downloadICS("dadglass-reminders", chosen.map((r) => ({ title: ro ? r.ro : r.en, description: desc, start: d, allDay: true })));
+      // A timed event, not an all-day one: all-day gives the calendar app no
+      // hour to ring at, so it falls back to its own default (Google's is the
+      // evening before) and the time the user picked here is ignored.
+      downloadICS("dadglass-reminders", chosen.map((r) => ({ title: ro ? r.ro : r.en, description: desc, start: atTime(d, reminderTime), durationMinutes: 15 })));
       confirmDownload();
       return;
     }
-    const start = new Date();
-    start.setHours(18, 0, 0, 0);
+    const start = nextOccurrence(reminderTime);
     const rrule = frequency === "Daily" ? "FREQ=DAILY" : "FREQ=WEEKLY";
     downloadICS("dadglass-reminders", chosen.map((r) => ({ title: ro ? r.ro : r.en, description: desc, start, durationMinutes: 15, rrule })));
     confirmDownload();
@@ -662,6 +680,19 @@ function SupportReminders({ onClose }: { onClose: () => void }) {
             onChange={(e) => setReminderDate(e.target.value)}
             className="mt-3 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-[14px] text-slate-900 outline-none focus:ring-2 focus:ring-slate-300"
           />
+        )}
+        {frequency !== "Off" && (
+          <label className="mt-3 block">
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.08em] block mb-2">
+              {ro ? "La ce oră" : "At what time"}
+            </span>
+            <input
+              type="time"
+              value={reminderTime}
+              onChange={(e) => setReminderTime(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-[14px] text-slate-900 outline-none focus:ring-2 focus:ring-slate-300"
+            />
+          </label>
         )}
         <p className="text-[12px] text-slate-500 leading-relaxed mt-3">
           {ro
