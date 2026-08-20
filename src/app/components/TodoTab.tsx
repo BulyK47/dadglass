@@ -7,6 +7,7 @@ import {
   Download,
   FileText,
   ShieldCheck,
+  SlidersHorizontal,
   Square,
   StickyNote,
   X,
@@ -377,10 +378,20 @@ export function TodoTab({ onOpenFeature }: TodoTabProps) {
   const [activePriority, setActivePriority] = useState<Priority | "all">("all");
   const [activeTopic, setActiveTopic] = useState<Topic | "all">("all");
   const [activeView, setActiveView] = useState<ViewFilter>("all");
+  /*
+   * Four rows of chips filled half the screen before a single task appeared.
+   * The view row stays — it is the one people actually switch between — and
+   * the three narrowing filters fold away behind a button that carries a count,
+   * so a filter left on is never invisible: a short list with no visible reason
+   * reads as a bug.
+   */
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const reminders = usePersistedSet("dg_todo_reminders");
   const [reminderItem, setReminderItem] = useState<TodoItem | null>(null);
   const [notesOpen, setNotesOpen] = useState<string | null>(null);
   const [notes, setNotes] = usePersistedState<Record<string, string>>("dg_todo_notes", {});
+
+  const narrowCount = [activePriority !== "all", activeTopic !== "all", activeStage !== "all"].filter(Boolean).length;
 
   const filtered = TODO_ITEMS
     .filter(item => activeStage === "all" || item.category === activeStage)
@@ -484,6 +495,34 @@ export function TodoTab({ onOpenFeature }: TodoTabProps) {
           ))}
         </div>
 
+        <button
+          onClick={() => setFiltersOpen(v => !v)}
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[12px] font-semibold transition-all ${
+            narrowCount > 0 ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600"
+          }`}
+        >
+          <SlidersHorizontal className="w-3.5 h-3.5" strokeWidth={2.5} />
+          {ro ? "Filtre" : "Filters"}
+          {narrowCount > 0 && (
+            <span className={`min-w-[18px] h-[18px] px-1 rounded-full text-[11px] leading-[18px] text-center ${
+              filtersOpen ? "bg-white/20" : "bg-white text-slate-900"
+            }`}>
+              {narrowCount}
+            </span>
+          )}
+        </button>
+
+        {narrowCount > 0 && (
+          <button
+            onClick={() => { setActivePriority("all"); setActiveTopic("all"); setActiveStage("all"); }}
+            className="ml-2 text-[12px] font-semibold text-slate-500 underline underline-offset-2"
+          >
+            {ro ? "Resetează" : "Reset"}
+          </button>
+        )}
+
+        {filtersOpen && (
+        <div className="mt-2">
         <div className="flex flex-wrap gap-1.5 pb-1 mb-2">
           {PRIORITIES.map(priority => (
             <button
@@ -519,6 +558,8 @@ export function TodoTab({ onOpenFeature }: TodoTabProps) {
             </button>
           ))}
         </div>
+        </div>
+        )}
       </div>
 
       <div className="px-5 pt-5 pb-32 space-y-6">
