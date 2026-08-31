@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ClipboardList,
   Heart,
+  Info,
   MessageCircle,
   Plus,
   ShieldCheck,
@@ -374,164 +375,163 @@ function ReadinessScore({ onClose }: { onClose: () => void }) {
   );
 }
 
-// Hospital + home prep list, adapted from a real Romanian maternity checklist.
-// Keys are the English label (used as the checkbox id); BAG_LABELS_RO holds the Romanian.
-const BAG_SECTIONS = {
+/*
+ * Hospital + home-prep lists, built from real Romanian maternity paperwork
+ * (Spitalul Clinic de Obstetrica si Ginecologie "Prof. Dr. Panait Sirbu") plus
+ * the lists parents actually pass around.
+ *
+ * `id` is the stored checkbox key and must never change once shipped, or every
+ * user's ticks for that row silently disappear. That is why the older ids read
+ * like English sentences: they used to BE the label. New rows get short slugs;
+ * relabelling anything is now free.
+ *
+ * Two rules this list follows on purpose:
+ *  - No brand names. The app has no commercial relationship with any of them,
+ *    they differ by country, and they date the list.
+ *  - Nothing that is a treatment or a dose. The maternity paperwork this came
+ *    from prescribes cord antiseptics, eye and mouth care and paediatric
+ *    paracetamol at 10 mg/kg. None of that belongs in a general consumer app —
+ *    it belongs with the family's own doctor, midwife or pharmacist, which is
+ *    what the note at the top of the screen says.
+ */
+interface BagItem {
+  id: string;
+  en: string;
+  ro: string;
+}
+
+const BAG_SECTIONS: Record<"her" | "baby" | "dad" | "documents" | "home", BagItem[]> = {
   her: [
-    "Maternity / postpartum pads",
-    "Mesh postpartum underwear",
-    "Toilet paper",
-    "Shower gel",
-    "Towel",
-    "Toothbrush & toothpaste",
-    "Deodorant",
-    "Hair ties",
-    "Loose nightgowns / pajamas (x3)",
-    "Comfy slippers (a size up)",
-    "Lanolin nipple cream",
-    "Going-home clothes for mom",
+    { id: "Maternity / postpartum pads", en: "Maternity / postpartum pads", ro: "Absorbante postnatale" },
+    { id: "Mesh postpartum underwear", en: "Disposable postpartum underwear", ro: "Chiloți de unică folosință (plasă)" },
+    { id: "her-cotton-underwear", en: "Cotton underwear", ro: "Lenjerie intimă din bumbac" },
+    { id: "her-nursing-bras", en: "Nursing bras", ro: "Sutiene de alăptat" },
+    { id: "her-breast-pads", en: "Breast pads", ro: "Absorbante (comprese) pentru sâni" },
+    { id: "Lanolin nipple cream", en: "Lanolin nipple cream", ro: "Cremă cu lanolină pentru mameloane" },
+    { id: "Loose nightgowns / pajamas (x3)", en: "Nightgowns / pajamas that open at the front (x3)", ro: "Cămăși de noapte / pijamale cu deschidere în față (x3)" },
+    { id: "Comfy slippers (a size up)", en: "Comfy slippers (a size up)", ro: "Papuci comozi (cu un număr mai mari)" },
+    { id: "Toothbrush & toothpaste", en: "Toothbrush & toothpaste", ro: "Periuță și pastă de dinți" },
+    { id: "Shower gel", en: "Shower gel", ro: "Gel de duș" },
+    { id: "Deodorant", en: "Deodorant", ro: "Deodorant" },
+    { id: "Towel", en: "Towel", ro: "Prosop" },
+    { id: "Toilet paper", en: "Toilet paper", ro: "Hârtie igienică" },
+    { id: "Hair ties", en: "Hair ties", ro: "Elastice de păr" },
+    { id: "her-cup-straws", en: "A cup, a spoon and straws", ro: "O cană, o linguriță și paie" },
+    { id: "her-drinks", en: "Still water and unsweetened tea", ro: "Apă plată și ceai neîndulcit" },
+    { id: "Going-home clothes for mom", en: "Going-home clothes for mom", ro: "Haine de externare pentru mama" },
   ],
   baby: [
-    "Changing mats / pads (x3)",
-    "Socks (x3)",
-    "Nipple shields",
-    "Car seat",
-    "Nappies (2 brands to try)",
-    "Nappy rash cream (Mustela / Sudocrem)",
-    "Baby wash (Mustela / Lipikar)",
-    "Baby wipes (water wipes)",
-    "Hooded towel",
-    "Muslin / cotton cloths (x2)",
-    "Bodysuits (x4)",
-    "Footed pants / leggings",
-    "Zip or snap sleepsuits (avoid buttons)",
-    "Hats (x2)",
-    "Pacifiers (0-6m, x2)",
-    "Baby blanket",
-    "Going-home outfit for baby",
+    { id: "Bodysuits (x4)", en: "Bodysuits (x4)", ro: "Body-uri (x4)" },
+    { id: "Zip or snap sleepsuits (avoid buttons)", en: "Zip or snap sleepsuits (avoid buttons)", ro: "Pijamale întregi cu fermoar/capse (evită nasturii)" },
+    { id: "Footed pants / leggings", en: "Footed pants / leggings", ro: "Pantaloni cu botoșei" },
+    { id: "Socks (x3)", en: "Socks (x3)", ro: "Șosete (x3)" },
+    { id: "Hats (x2)", en: "Hats (x2)", ro: "Căciulițe (x2)" },
+    { id: "Baby blanket", en: "Baby blanket", ro: "Păturică" },
+    { id: "Muslin / cotton cloths (x2)", en: "Muslin / cotton cloths (x2)", ro: "Scutece de muselină / bumbac (x2)" },
+    { id: "Nappies (2 brands to try)", en: "Nappies (2 kinds, to see what fits)", ro: "Scutece (2 tipuri, ca să vezi ce se potrivește)" },
+    { id: "Changing mats / pads (x3)", en: "Changing mats / pads (x3)", ro: "Aleze (x3)" },
+    { id: "Baby wipes (water wipes)", en: "Fragrance-free baby wipes", ro: "Șervețele umede fără parfum" },
+    { id: "Nappy rash cream (Mustela / Sudocrem)", en: "Nappy rash cream", ro: "Cremă pentru zona scutecului" },
+    { id: "Baby wash (Mustela / Lipikar)", en: "Gentle, fragrance-free baby wash", ro: "Gel de spălare delicat, fără parfum" },
+    { id: "Hooded towel", en: "Hooded towel", ro: "Prosop cu glugă" },
+    { id: "Nipple shields", en: "Nipple shields", ro: "Protecții pentru mameloane" },
+    { id: "Pacifiers (0-6m, x2)", en: "Pacifiers (0-6m, x2)", ro: "Suzete (0-6 luni, x2)" },
+    { id: "Car seat", en: "Car seat", ro: "Scaun auto (scoică)" },
+    { id: "Going-home outfit for baby", en: "Going-home outfit for baby", ro: "Ținută de externare pentru bebe" },
   ],
   dad: [
-    "Phone charger",
-    "Snacks",
-    "Water bottle",
-    "Change of clothes",
-    "Hoodie",
-    "Toiletries",
-    "Pillow",
-    "Cash / card",
-    "Headphones",
-    "Important contacts",
-    "Birth plan copy",
+    { id: "Phone charger", en: "Phone charger", ro: "Încărcător telefon" },
+    { id: "Snacks", en: "Snacks", ro: "Gustări" },
+    { id: "Water bottle", en: "Water bottle", ro: "Sticlă de apă" },
+    { id: "Change of clothes", en: "Change of clothes", ro: "Haine de schimb" },
+    { id: "Hoodie", en: "Hoodie", ro: "Hanorac" },
+    { id: "Toiletries", en: "Toiletries", ro: "Produse de igienă" },
+    { id: "Pillow", en: "Pillow", ro: "Pernă" },
+    { id: "Headphones", en: "Headphones", ro: "Căști" },
+    { id: "Cash / card", en: "Cash / card", ro: "Cash / card" },
+    { id: "Important contacts", en: "Important contacts", ro: "Contacte importante" },
+    { id: "Birth plan copy", en: "Birth plan copy", ro: "Copie plan de naștere" },
   ],
   documents: [
-    "ID",
-    "Insurance / medical card",
-    "Pregnancy notes & test results",
-    "Birth plan",
-    "Hospital forms",
+    { id: "ID", en: "ID", ro: "Act de identitate" },
+    { id: "Insurance / medical card", en: "Insurance / medical card", ro: "Card de sănătate / asigurare" },
+    { id: "doc-marriage-cert", en: "Marriage certificate (if you have one)", ro: "Certificat de căsătorie (dacă există)" },
+    { id: "Pregnancy notes & test results", en: "Pregnancy notes & test results", ro: "Dosar sarcină și analize" },
+    { id: "Birth plan", en: "Birth plan", ro: "Plan de naștere" },
+    { id: "Hospital forms", en: "Hospital forms", ro: "Formulare spital" },
   ],
   home: [
-    "Breast pump (manual + electric)",
-    "Crib + bedding",
-    "Bassinet / Moses basket",
-    "Sleeping bag",
-    "Anti-roll pillow",
-    "Nursing pillow",
-    "Changing mat",
-    "Stroller / pram",
-    "Baby bathtub + support + mat",
-    "Baby scale",
-    "Sterilizer",
-    "Bottles + warmer",
-    "Nasal aspirator",
-    "Room & water thermometer",
-    "Body thermometer",
-    "Saline drops",
-    "Vitamin D drops",
-    "Massage oil",
-    "Cotton swabs",
-    "Baby nail file / scissors",
-    "Hooded bath towels (x5-7)",
-    "Brush & comb",
-    "Rocker / bouncer",
+    { id: "Crib + bedding", en: "Cot + mattress", ro: "Pătuț + saltea" },
+    { id: "home-cot-sheets", en: "Cot sheets (x2-3)", ro: "Cearșafuri de pătuț (x2-3)" },
+    { id: "home-mattress-protector", en: "Waterproof mattress protectors (x2)", ro: "Protecții impermeabile pentru saltea (x2)" },
+    { id: "Bassinet / Moses basket", en: "Bassinet / Moses basket", ro: "Coș de dormit" },
+    { id: "Sleeping bag", en: "Sleeping bag, right for the season", ro: "Sac de dormit, potrivit sezonului" },
+    { id: "home-night-light", en: "Dim night light", ro: "Lumină de veghe cu intensitate mică" },
+    { id: "home-white-noise", en: "White-noise speaker", ro: "Aparat cu sunete albe" },
+    { id: "home-baby-monitor", en: "Baby monitor (audio or video)", ro: "Monitor pentru bebe (audio sau video)" },
+    { id: "Nursing pillow", en: "Nursing pillow", ro: "Pernă de alăptare" },
+    { id: "Breast pump (manual + electric)", en: "Breast pump", ro: "Pompă de sân" },
+    { id: "home-milk-bags", en: "Milk storage bags", ro: "Pungi pentru depozitarea laptelui" },
+    { id: "Bottles + warmer", en: "Bottles + warmer", ro: "Biberoane + încălzitor" },
+    { id: "home-teats", en: "Teats in different flows", ro: "Tetine cu fluxuri diferite" },
+    { id: "home-bottle-brush", en: "Bottle brush", ro: "Perie pentru biberoane" },
+    { id: "Sterilizer", en: "Sterilizer", ro: "Sterilizator" },
+    { id: "home-thermos", en: "Thermos", ro: "Termos" },
+    { id: "home-bibs", en: "Bibs", ro: "Bavete" },
+    { id: "home-pacifier-clip", en: "Pacifier clip / case", ro: "Clemă și cutie pentru suzetă" },
+    { id: "Changing mat", en: "Changing mat / table", ro: "Masă sau salteluță de înfășat" },
+    { id: "home-portable-mat", en: "Portable changing mat", ro: "Saltea portabilă de înfășat" },
+    { id: "home-changing-bag", en: "Changing bag", ro: "Geantă de schimbat" },
+    { id: "home-nappy-bin", en: "Nappy bin that seals", ro: "Coș de scutece cu închidere ermetică" },
+    { id: "home-muslins", en: "Muslins for home (10-15)", ro: "Museline pentru casă (10-15)" },
+    { id: "home-laundry-basket", en: "Laundry basket for baby's clothes", ro: "Coș pentru rufele bebelușului" },
+    { id: "home-baby-detergent", en: "Gentle detergent for baby's clothes", ro: "Detergent delicat pentru hainele bebelușului" },
+    { id: "Baby bathtub + support + mat", en: "Baby bathtub + support + mat", ro: "Cădiță + suport + saltea de baie" },
+    { id: "Hooded bath towels (x5-7)", en: "Hooded bath towels (x5-7)", ro: "Prosoape mari cu glugă (x5-7)" },
+    { id: "Room & water thermometer", en: "Room & bath-water thermometer", ro: "Termometru de cameră și de apă" },
+    { id: "Body thermometer", en: "Body thermometer", ro: "Termometru medical" },
+    { id: "Brush & comb", en: "Soft brush & comb", ro: "Perie moale și pieptăn" },
+    { id: "Baby nail file / scissors", en: "Baby nail file / round-tip scissors", ro: "Pilă / forfecuță cu capete boante" },
+    { id: "Cotton swabs", en: "Cotton buds & cotton pads", ro: "Bețișoare și dischete de bumbac" },
+    { id: "home-sterile-gauze", en: "Sterile gauze pads, small and large", ro: "Comprese sterile, mici și mari" },
+    { id: "Saline drops", en: "Single-dose saline", ro: "Ser fiziologic monodoză" },
+    { id: "Nasal aspirator", en: "Nasal aspirator", ro: "Aspirator nazal" },
+    { id: "Massage oil", en: "Baby massage oil", ro: "Ulei de masaj pentru bebe" },
+    { id: "Vitamin D drops", en: "Vitamin D drops (ask your paediatrician)", ro: "Vitamina D picături (întreabă medicul pediatru)" },
+    { id: "Baby scale", en: "Baby scale", ro: "Cântar pentru bebe" },
+    { id: "home-carrier", en: "Baby carrier or sling", ro: "Marsupiu sau port-bebe" },
+    { id: "Stroller / pram", en: "Pram with carrycot and seat unit", ro: "Cărucior cu landou și parte sport" },
+    { id: "Rocker / bouncer", en: "Rocker / bouncer", ro: "Balansoar" },
+    { id: "home-play-mat", en: "Activity / play mat", ro: "Salteluță de activități" },
   ],
-} as const;
-
-const BAG_LABELS_RO: Record<string, string> = {
-  // For her
-  "Maternity / postpartum pads": "Tampoane / absorbante speciale",
-  "Mesh postpartum underwear": "Chiloți medicinali (plasă)",
-  "Toilet paper": "Hârtie igienică",
-  "Shower gel": "Gel de duș",
-  "Towel": "Prosop",
-  "Toothbrush & toothpaste": "Periuță și pastă de dinți",
-  "Deodorant": "Deodorant",
-  "Hair ties": "Elastice de păr",
-  "Loose nightgowns / pajamas (x3)": "Cămăși de noapte / pijamale lejere (x3)",
-  "Comfy slippers (a size up)": "Papuci comozi (cu un număr mai mari)",
-  "Lanolin nipple cream": "Cremă cu lanolină pentru mameloane",
-  "Going-home clothes for mom": "Haine de externare pentru mama",
-  // For baby
-  "Changing mats / pads (x3)": "Aleze (x3)",
-  "Socks (x3)": "Șosete (x3)",
-  "Nipple shields": "Protecții pentru mameloane",
-  "Car seat": "Scaun auto (scoică)",
-  "Nappies (2 brands to try)": "Scutece (2 mărci de încercat)",
-  "Nappy rash cream (Mustela / Sudocrem)": "Cremă de fund (Mustela / Sudocrem)",
-  "Baby wash (Mustela / Lipikar)": "Gel de duș bebe (Mustela / Lipikar)",
-  "Baby wipes (water wipes)": "Șervețele umede (water wipes)",
-  "Hooded towel": "Prosop cu glugă",
-  "Muslin / cotton cloths (x2)": "Scutece de muselină / bumbac (x2)",
-  "Bodysuits (x4)": "Body-uri (x4)",
-  "Footed pants / leggings": "Pantaloni cu botoșei",
-  "Zip or snap sleepsuits (avoid buttons)": "Pijamale întregi cu fermoar/capse (evită nasturii)",
-  "Hats (x2)": "Căciulițe (x2)",
-  "Pacifiers (0-6m, x2)": "Suzete (0-6 luni, x2)",
-  "Baby blanket": "Păturică",
-  "Going-home outfit for baby": "Ținută de externare pentru bebe",
-  // For dad
-  "Phone charger": "Încărcător telefon",
-  "Snacks": "Gustări",
-  "Water bottle": "Sticlă de apă",
-  "Change of clothes": "Haine de schimb",
-  "Hoodie": "Hanorac",
-  "Toiletries": "Produse de igienă",
-  "Pillow": "Pernă",
-  "Cash / card": "Cash / card",
-  "Headphones": "Căști",
-  "Important contacts": "Contacte importante",
-  "Birth plan copy": "Copie plan de naștere",
-  // Documents
-  "ID": "Act de identitate",
-  "Insurance / medical card": "Card de sănătate / asigurare",
-  "Pregnancy notes & test results": "Dosar sarcină și analize",
-  "Birth plan": "Plan de naștere",
-  "Hospital forms": "Formulare spital",
-  // At home
-  "Breast pump (manual + electric)": "Pompă de sân (manuală + electrică)",
-  "Crib + bedding": "Pătuț + lenjerie",
-  "Bassinet / Moses basket": "Coș de dormit",
-  "Sleeping bag": "Sac de dormit",
-  "Anti-roll pillow": "Pernă antirostogolire",
-  "Nursing pillow": "Pernă de alăptare",
-  "Changing mat": "Saltea / pernă de înfășat",
-  "Stroller / pram": "Cărucior",
-  "Baby bathtub + support + mat": "Cădiță + suport + saltea de baie",
-  "Baby scale": "Cântar pentru bebe",
-  "Sterilizer": "Sterilizator",
-  "Bottles + warmer": "Biberoane + încălzitor",
-  "Nasal aspirator": "Aspirator nazal",
-  "Room & water thermometer": "Termometru de cameră și apă",
-  "Body thermometer": "Termometru medical",
-  "Saline drops": "Ser fiziologic (doze)",
-  "Vitamin D drops": "Vitamina D (picături)",
-  "Massage oil": "Ulei de masaj",
-  "Cotton swabs": "Bețișoare de urechi",
-  "Baby nail file / scissors": "Pilă / forfecuță de unghii",
-  "Hooded bath towels (x5-7)": "Prosoape mari cu glugă (x5-7)",
-  "Brush & comb": "Perie și pieptăn",
-  "Rocker / bouncer": "Balansoar",
 };
+
+/*
+ * Per-tab notes. The "home" one is not decoration: the list used to include an
+ * anti-roll positioning pillow, which is the opposite of what every major
+ * safe-sleep guideline says belongs in a cot (AAP 2022, NHS / The Lullaby Trust;
+ * the FDA has warned specifically about infant sleep positioners). It has been
+ * removed, and the note now says what to keep out.
+ */
+const BAG_SECTION_NOTES: Partial<Record<keyof typeof BAG_SECTIONS, { en: string; ro: string }>> = {
+  her: {
+    en: "Choose toiletries without a strong scent — smells can make nausea worse. If a caesarean is planned, avoid drawstrings, elastic, zips and buttons that would sit on the incision.",
+    ro: "Alege produse fără miros puternic — mirosurile pot accentua greața. Dacă nașterea prin cezariană e programată, evită șireturile, elasticele, fermoarele și nasturii care ar apăsa pe incizie.",
+  },
+  dad: {
+    en: "Pack as if you are staying the night. It usually takes longer than anyone expects.",
+    ro: "Fă-ți bagajul ca pentru o noapte întreagă. De obicei durează mai mult decât se așteaptă oricine.",
+  },
+  documents: {
+    en: "Ask your maternity unit what they want to see — the paperwork differs from hospital to hospital.",
+    ro: "Întreabă la maternitate ce documente cer — actele diferă de la spital la spital.",
+  },
+  home: {
+    en: "For sleep, keep the cot bare: no pillows, duvets, cot bumpers, positioning wedges or soft toys, however useful they look in the shop.",
+    ro: "Pentru somn, pătuțul trebuie să rămână gol: fără perne, pături, apărători de pătuț, perne de poziționare sau jucării moi, oricât de utile ar părea în magazin.",
+  },
+};
+
 
 function HospitalBag({ onClose }: { onClose: () => void }) {
   const { language } = useApp();
@@ -539,15 +539,35 @@ function HospitalBag({ onClose }: { onClose: () => void }) {
   const [tab, setTab] = useState<keyof typeof BAG_SECTIONS>("dad");
   const bag = usePersistedSet("dg_hospital_bag");
   const items = BAG_SECTIONS[tab];
+  const note = BAG_SECTION_NOTES[tab];
 
   return (
     <Shell title={ro ? "Geanta de spital" : "Hospital Bag"} subtitle={ro ? "Ce să pui în geantă pentru spital și ce să ai pregătit acasă." : "What to pack for the hospital, plus what to have ready at home."} onClose={onClose}>
+      {/*
+        Said once, at the top, before any list: these are general lists, the
+        maternity's own list takes precedence, and nothing here replaces a
+        professional on anything medical. The lists were assembled from real
+        maternity paperwork that also contained cord antiseptics and a paediatric
+        paracetamol dose; those were deliberately left out, and this is where the
+        user is told where to get them instead.
+      */}
+      <div className="rounded-[1.25rem] border border-amber-200 bg-amber-50 p-4 flex items-start gap-3">
+        <Info className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" strokeWidth={2} />
+        <p className="text-[12px] text-amber-900 leading-relaxed">
+          {ro
+            ? "Listele sunt generale și orientative. Maternitatea unde naște are propria listă, iar aceea are prioritate. Pentru medicamente, îngrijirea bontului ombilical sau orice ține de tratamentul bebelușului, întreabă medicul, moașa sau farmacistul — nu o aplicație."
+            : "These lists are general and indicative. The maternity unit will have its own list, and that one takes precedence. For medication, cord care, or anything to do with treating the baby, ask your doctor, midwife or pharmacist — not an app."}
+        </p>
+      </div>
+
       <div className="flex gap-1.5 overflow-x-auto pb-1">
+        {/* These chips had `capitalize`, which title-cases every word and turned
+            the Romanian labels into "Pentru Ea" / "Pentru Bebe". */}
         {(Object.keys(BAG_SECTIONS) as Array<keyof typeof BAG_SECTIONS>).map((key) => (
           <button
             key={key}
             onClick={() => setTab(key)}
-            className={`flex-shrink-0 min-h-[40px] px-3.5 rounded-full text-[12px] font-semibold capitalize ${tab === key ? "bg-slate-900 text-white" : "bg-white text-slate-600 border border-slate-200"}`}
+            className={`flex-shrink-0 min-h-[40px] px-3.5 rounded-full text-[12px] font-semibold ${tab === key ? "bg-slate-900 text-white" : "bg-white text-slate-600 border border-slate-200"}`}
           >
             {ro
               ? key === "her" ? "Pentru ea" : key === "baby" ? "Pentru bebe" : key === "dad" ? "Pentru tata" : key === "documents" ? "Documente" : "Acasă"
@@ -556,20 +576,28 @@ function HospitalBag({ onClose }: { onClose: () => void }) {
         ))}
       </div>
 
+      {note && (
+        <div className="rounded-[1.25rem] border border-slate-200 bg-white p-4">
+          <p className="text-[12px] text-slate-600 leading-relaxed">
+            {ro ? note.ro : note.en}
+          </p>
+        </div>
+      )}
+
       <Card className="divide-y divide-slate-100 p-0 overflow-hidden">
         {items.map((item) => {
-          const done = bag.has(item);
+          const done = bag.has(item.id);
           return (
             <button
-              key={item}
-              onClick={() => bag.toggle(item)}
+              key={item.id}
+              onClick={() => bag.toggle(item.id)}
               className="w-full flex items-center gap-3 px-5 py-4 text-left min-h-[52px]"
             >
-              <span className={`w-5 h-5 rounded-md border flex items-center justify-center ${done ? "bg-slate-900 border-slate-900" : "border-slate-300"}`}>
+              <span className={`w-5 h-5 rounded-md border flex items-center justify-center flex-shrink-0 ${done ? "bg-slate-900 border-slate-900" : "border-slate-300"}`}>
                 {done && <Check className="w-3.5 h-3.5 text-white" />}
               </span>
               <span className={`text-[14px] ${done ? "line-through text-slate-400" : "text-slate-800"}`}>
-                {ro ? BAG_LABELS_RO[item] ?? item : item}
+                {ro ? item.ro : item.en}
               </span>
             </button>
           );
@@ -577,7 +605,7 @@ function HospitalBag({ onClose }: { onClose: () => void }) {
       </Card>
 
       <button
-        onClick={() => bag.addAll(items as unknown as string[])}
+        onClick={() => bag.addAll(items.map((i) => i.id))}
         className="w-full min-h-[44px] rounded-xl bg-slate-900 text-white text-[14px] font-semibold"
       >
         {ro ? "Marchează tot din această filă" : "Check everything in this tab"}

@@ -29,6 +29,32 @@ Ce ne interesează cel mai mult: ți se pare ceva neclar, greșit sau nepotrivit
 
 ---
 
+## Release notes for 1.0.5 (the mid-test update)
+
+The build that answers the tester report. Max 500 characters per language.
+
+### English
+```
+Everything the testers asked for.
+
+New: a short walkthrough of the five sections for first-time users (skippable, and reopenable from Profile), and a way to rate the app.
+
+Also: the hospital bag and home lists are considerably longer and now say plainly that they are general lists — anything medical comes from your doctor or midwife. One item that contradicted safe-sleep guidance is gone. Profile finally shows the real version number.
+```
+*(438 characters)*
+
+### Română
+```
+Tot ce au cerut testerii.
+
+Nou: un tur scurt al celor cinci secțiuni pentru cei care intră prima dată (se poate sări, se poate redeschide din Profil) și o cale de a evalua aplicația.
+
+În plus: listele pentru geanta de spital și pentru casă sunt mult mai lungi și spun clar că sunt liste generale — orice ține de medical vine de la medicul tău sau de la moașă. Un articol care contrazicea recomandările de somn sigur a fost scos. Profilul arată, în sfârșit, versiunea reală.
+```
+*(473 caractere)*
+
+---
+
 ## Message to send testers
 
 Being on the tester list is NOT enough — each person must open the opt-in link

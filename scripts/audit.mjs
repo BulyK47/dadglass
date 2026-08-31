@@ -45,9 +45,20 @@ for (const f of [...srcFiles, "index.html"]) {
 }
 const allowed = new Set(["www.w3.org", "webkit.org", "dadglass.app"]);
 const externals = [...hosts].filter((h) => !allowed.has(h));
+/*
+ * Hosts the app is allowed to send the user to, each with the reason it is
+ * acceptable. The disclosure in PRIVACY.md is prose ("Google Play", "Google
+ * Calendar") rather than a hostname, so it cannot be matched automatically —
+ * hence the explicit list. Adding a host here means: it is a link the user
+ * chooses to follow, it carries no user data, and PRIVACY.md says so.
+ */
+const disclosedHosts = {
+  "calendar.google.com": "user-initiated Google Calendar link",
+  "play.google.com": "user-initiated store link, for rating the app",
+};
 if (externals.length === 0) OK("No external hosts referenced.");
 else externals.forEach((h) => {
-  if (h.includes("calendar.google.com")) OK(`External host ${h} — user-initiated Google Calendar link (disclosed in PRIVACY.md ✓)`);
+  if (disclosedHosts[h]) OK(`External host ${h} — ${disclosedHosts[h]} (disclosed in PRIVACY.md ✓)`);
   else WARN(`External host referenced: ${h} — confirm it's disclosed in PRIVACY.md`);
 });
 
@@ -217,10 +228,52 @@ if (!privHtml) {
   /not a medical device/i.test(privHtml) && /nu este un dispozitiv medical/i.test(privHtml)
     ? OK("privacy.html carries the medical disclaimer in both languages")
     : FAIL("privacy.html is missing the medical disclaimer");
+  /*
+   * The two copies carry their own "last updated" dates, and a policy change
+   * that updates one and not the other is worse than no date at all. This bit
+   * once: the rating disclosure was added to both files while both still said
+   * 23 June, and the live page at the store's privacy URL therefore looked
+   * unchanged.
+   */
+  const mdDate = (priv.match(/Last updated:\s*(\d{4})-(\d{2})-(\d{2})/) || []).slice(1).join("-");
+  const htmlMonths = { january: "01", february: "02", march: "03", april: "04", may: "05", june: "06", july: "07", august: "08", september: "09", october: "10", november: "11", december: "12" };
+  const h = privHtml.match(/Last updated:\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  const htmlDate = h ? `${h[3]}-${htmlMonths[h[2].toLowerCase()] || "??"}-${String(h[1]).padStart(2, "0")}` : "";
+  if (!mdDate || !htmlDate) {
+    WARN("could not read the 'last updated' date from PRIVACY.md and/or privacy.html");
+  } else if (mdDate !== htmlDate) {
+    FAIL(`privacy 'last updated' dates disagree: PRIVACY.md ${mdDate} vs privacy.html ${htmlDate}`);
+  } else {
+    OK(`privacy policy dated ${mdDate} in both copies`);
+    WARN(`remember: privacy.html only reaches the store's URL once it is pushed and GitHub Pages redeploys — check https://bulyk47.github.io/dadglass/privacy.html shows ${mdDate}`);
+  }
+
   // A store reviewer opens this cold: it must not depend on the app booting.
   /<script/i.test(privHtml)
     ? WARN("privacy.html contains a <script> — keep it plain HTML so it always renders")
     : OK("privacy.html is self-contained (no scripts, no external requests)");
+}
+
+/*
+ * The version shown in Profile comes from package.json (via Vite's define), and
+ * the version the store shows comes from build.gradle. They used to be unrelated
+ * - Profile said "v2.0" for months while the store shipped 1.0.4 - which made it
+ * impossible to tell from inside the app which build a phone was running. Keep
+ * them equal, and make versionCode move forward with them.
+ */
+P("\n-- Version --");
+{
+  const pkgVersion = JSON.parse(readAll("package.json") || "{}").version;
+  const gradle = readAll("android/app/build.gradle");
+  const nameMatch = gradle.match(/versionName\s+"([^"]+)"/);
+  const codeMatch = gradle.match(/versionCode\s+(\d+)/);
+  if (!pkgVersion || !nameMatch || !codeMatch) {
+    FAIL("could not read the version from package.json and/or android/app/build.gradle");
+  } else if (pkgVersion !== nameMatch[1]) {
+    FAIL(`version mismatch: package.json says ${pkgVersion}, build.gradle versionName says ${nameMatch[1]} - Profile would show the wrong number`);
+  } else {
+    OK(`version ${pkgVersion} (versionCode ${codeMatch[1]}) consistent across package.json and build.gradle`);
+  }
 }
 
 P("\n════════════════════════════════════");

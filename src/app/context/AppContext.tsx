@@ -10,7 +10,6 @@ export interface ProfileData {
   partnerName: string;
   babyNickname: string;
   dueDate: string;
-  firstBaby: "yes" | "no" | "prefer-not" | "";
 }
 
 export interface DadStyleData {
@@ -97,7 +96,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [units, setUnits] = usePersisted<Units>("dg_units", "metric");
   const [comparisonMode, setComparisonMode] = usePersisted<ComparisonMode>("dg_cmp", "glass");
   const [currentWeek, setCurrentWeek] = usePersisted<number>("dg_week", 4);
-  const [profile, setProfileRaw] = usePersisted<ProfileData>("dg_profile", { dadName: "", partnerName: "", babyNickname: "", dueDate: "", firstBaby: "" });
+  const [profile, setProfileRaw] = usePersisted<ProfileData>("dg_profile", { dadName: "", partnerName: "", babyNickname: "", dueDate: "" });
   const [dadStyle, setDadStyleRaw] = usePersisted<DadStyleData>("dg_style", { priorities: [], mood: "", tone: "" });
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = usePersisted<boolean>("dg_onboarded", false);
   const [hasSeenDisclaimer, setHasSeenDisclaimer] = usePersisted<boolean>("dg_disclaimer", false);

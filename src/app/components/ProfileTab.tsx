@@ -1,14 +1,16 @@
 import { type ComponentType, type ReactNode } from "react";
-import { User, Calendar, Baby, Lock, Globe, Ruler, ToggleLeft, BookOpen, Info, ChevronRight, Bell, Briefcase, ShieldCheck, MessageCircle, ClipboardList, Smartphone } from "lucide-react";
+import { User, Calendar, Baby, Lock, Globe, Ruler, ToggleLeft, BookOpen, Info, ChevronRight, Bell, Briefcase, ShieldCheck, MessageCircle, ClipboardList, Smartphone, Star, Compass } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { type FeatureKey } from "./FeatureScreens";
 import { weekFromDueDate } from "../utils/dueDate";
-import { isNative } from "../utils/platform";
+import { isNative, platform } from "../utils/platform";
+import { openStoreListing } from "../utils/review";
 
 interface ProfileTabProps {
   onOpenJournal: () => void;
   onOpenFeature: (feature: FeatureKey) => void;
   onOpenInstall: () => void;
+  onOpenHowItWorks: () => void;
 }
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -49,7 +51,7 @@ const TONES = [
   { id: "Light humor", en: "Light humor", ro: "Umor ușor" },
 ];
 
-export function ProfileTab({ onOpenJournal, onOpenFeature, onOpenInstall }: ProfileTabProps) {
+export function ProfileTab({ onOpenJournal, onOpenFeature, onOpenInstall, onOpenHowItWorks }: ProfileTabProps) {
   const {
     profile, updateProfile, currentWeek, setCurrentWeek,
     language, setLanguage, units, setUnits,
@@ -386,12 +388,34 @@ export function ProfileTab({ onOpenJournal, onOpenFeature, onOpenInstall }: Prof
                 <Info className="w-4 h-4 text-slate-400" strokeWidth={2} />
                 <span className="text-[14px] text-slate-700 font-medium">DadGlass</span>
               </div>
-              <span className="text-[13px] text-slate-400">v2.0</span>
+              {/* Comes from package.json via Vite; `npm run audit` keeps it in
+                  step with the versionName in android/app/build.gradle, so what
+                  the phone shows here matches what the store shipped. */}
+              <span className="text-[13px] text-slate-400">v{__APP_VERSION__}</span>
             </div>
             <div className="px-5 py-3.5 flex items-center justify-between">
               <span className="text-[14px] text-slate-600">{language === "ro" ? "Acoperire" : "Coverage"}</span>
               <span className="text-[13px] text-slate-500">{language === "ro" ? "Săptămânile 4-40" : "Weeks 4-40"}</span>
             </div>
+            <ActionRow
+              icon={Compass}
+              title={language === "ro" ? "Cum funcționează aplicația" : "How the app works"}
+              subtitle={language === "ro" ? "Turul scurt al celor cinci secțiuni" : "The short tour of the five sections"}
+              onClick={onOpenHowItWorks}
+            />
+            {/*
+              A deep link to the store page, NOT the in-app review dialog: Play's
+              guidelines forbid triggering that flow from a button. Hidden on iOS,
+              where a Google Play link would be nonsense.
+            */}
+            {platform() !== "ios" && (
+              <ActionRow
+                icon={Star}
+                title={language === "ro" ? "Evaluează pe Google Play" : "Rate on Google Play"}
+                subtitle={language === "ro" ? "Dacă ți-e de folos, o recenzie ajută mult" : "If it's useful to you, a review helps a lot"}
+                onClick={() => { void openStoreListing(); }}
+              />
+            )}
             <ActionRow
               icon={Info}
               title={language === "ro" ? "Disclaimer medical și comparații" : "Medical and comparison disclaimer"}

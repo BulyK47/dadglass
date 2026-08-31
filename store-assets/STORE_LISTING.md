@@ -4,6 +4,25 @@ Everything you need for the Google Play Console (and later App Store Connect).
 The medical disclaimer is deliberately in the **first paragraph** of the full
 description — Google Play's Health apps policy rejects listings that bury it.
 
+## How the search copy is built (rewritten after the closed test)
+
+Testers reported the listing was not written for search. Three things carry
+weight in Play, in this order, and this file works with all three:
+
+1. **The app name.** Left as plain `DadGlass` by decision — it is the brand, and
+   28 characters of "DadGlass: Pregnancy for Dads" would buy ranking at the cost
+   of the name. Which means the name contributes no keywords, and the two fields
+   below have to do the work.
+2. **The short description (80 chars).** The heaviest field left. It now leads
+   with the phrase people actually type — "pregnancy app for dads" / "aplicație
+   de sarcină pentru tați" — rather than with a mood.
+3. **The opening of the full description.** The terms appear inside the first
+   couple of paragraphs, in sentences a human would write.
+
+What this deliberately does NOT do: keyword lists, repeated terms, "#1",
+testimonials, or the names of other pregnancy apps. Play removes listings for
+all four, and the gain would be marginal anyway.
+
 ---
 
 ## English
@@ -15,15 +34,17 @@ DadGlass
 
 ### Short description (80 chars max)
 ```
-A calm, practical pregnancy guide built for dads. Week by week, fully offline.
+Pregnancy app for dads: week by week, baby size, checklist, hospital bag.
 ```
-*(77 characters)*
+*(73 characters)*
 
 ### Full description (4000 chars max)
 ```
 DadGlass is an educational and organisational guide for expecting dads. It is not a medical device and does not diagnose, treat, cure or prevent any condition, and it does not provide medical advice. Always consult a doctor or midwife about the pregnancy. Alcohol should be avoided during pregnancy.
 
-Being the partner in a pregnancy can feel like standing on the sidelines. DadGlass turns each week into something you can actually understand and act on.
+Being the partner in a pregnancy can feel like standing on the sidelines. DadGlass is a pregnancy app built for dads — a week-by-week guide, a dad checklist and a hospital bag list that turn each week into something you can understand and act on.
+
+It works as a pregnancy tracker you will actually open: set the due date once, and every week tells you what is happening, how she may be feeling, and one concrete thing you can do about it.
 
 WHAT'S INSIDE
 
@@ -68,7 +89,8 @@ Also used as the privacy-policy contact. Keep 2FA on this account.
 `Parenting` (or Health & Fitness)
 
 ### Tags / keywords
-pregnancy, dad, father, partner, week by week, checklist, hospital bag, baby, expecting
+pregnancy app for dads, pregnancy week by week, pregnancy tracker, dad checklist,
+hospital bag list, expecting father, first time dad, due date, baby size, birth plan
 
 ### Content rating questionnaire — how to answer
 - **Target audience:** adults (18+). Do **not** opt into the Families / Teacher-approved programme.
@@ -96,15 +118,17 @@ DadGlass
 
 ### Descriere scurtă (max 80 caractere)
 ```
-Ghid de sarcină practic, pentru tați. Săptămână cu săptămână, complet offline.
+Aplicație de sarcină pentru tați: săptămână cu săptămână, geanta de spital.
 ```
-*(77 caractere)*
+*(75 caractere)*
 
 ### Descriere completă
 ```
 DadGlass este un ghid educațional și de organizare pentru viitorii tați. Nu este un dispozitiv medical, nu diagnostichează, nu tratează și nu vindecă nicio afecțiune și nu oferă sfaturi medicale. Consultați întotdeauna un medic sau o moașă pentru orice ține de sarcină. Alcoolul trebuie evitat în timpul sarcinii.
 
-Ca partener într-o sarcină, e ușor să te simți pe margine. DadGlass transformă fiecare săptămână în ceva ce chiar înțelegi și la care poți contribui.
+Ca partener într-o sarcină, e ușor să te simți pe margine. DadGlass este o aplicație de sarcină făcută pentru tați — un ghid săptămână cu săptămână, un checklist pentru tata și o listă pentru geanta de spital, care transformă fiecare săptămână în ceva ce înțelegi și la care poți contribui.
+
+Funcționează ca un calendar de sarcină pe care chiar îl deschizi: introduci o dată data probabilă a nașterii, iar fiecare săptămână îți spune ce se întâmplă, cum s-ar putea simți ea și un lucru concret pe care îl poți face.
 
 CE GĂSEȘTI ÎN APLICAȚIE
 
@@ -143,7 +167,10 @@ Paharele sunt repere de mărime cunoscute, la fel cum alte aplicații folosesc f
 
 ## Assets in this folder
 - `feature-graphic-1024x500.png` — Play feature graphic
-- `screenshots/en/` and `screenshots/ro/` — 5 phone screenshots each, 1080×1920
+- `screenshots/en/` and `screenshots/ro/` — 5 phone screenshots each, 1080×1920,
+  each one captioned with a headline and subline (testers reported the earlier
+  bare device shots showed nothing about what the app does). The uncaptioned app
+  output is kept alongside under `raw/` — do not upload those.
 - App icon: use `assets/icon.png` (1024×1024) from the project root
 
 Regenerate any time:

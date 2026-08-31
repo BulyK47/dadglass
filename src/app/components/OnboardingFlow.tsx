@@ -42,7 +42,7 @@ export function OnboardingFlow() {
   const { setLanguage, language, updateProfile, updateDadStyle, completeOnboarding, markDisclaimerSeen, setCurrentWeek, t } = useApp();
   const [step, setStep] = useState<Step>(1);
   const [accepted, setAccepted] = useState(false);
-  const [localProfile, setLocalProfile] = useState({ dadName: "", partnerName: "", babyNickname: "", dueDate: "", firstBaby: "" as "" | "yes" | "no" | "prefer-not" });
+  const [localProfile, setLocalProfile] = useState({ dadName: "", partnerName: "", babyNickname: "", dueDate: "" });
   const [selectedTone, setSelectedTone] = useState("");
   const [manualWeek, setManualWeek] = useState<number | null>(4);
 
@@ -222,27 +222,13 @@ export function OnboardingFlow() {
               </p>
             </div>
 
-            {/* First baby */}
-            <div>
-              <label className="text-[12px] font-semibold text-slate-500 uppercase tracking-[0.08em] block mb-3">
-                {t("onboarding.setup.firstBaby")}
-              </label>
-              <div className="flex gap-2">
-                {(["yes", "no", "prefer-not"] as const).map(v => (
-                  <button
-                    key={v}
-                    onClick={() => setLocalProfile(p => ({ ...p, firstBaby: v }))}
-                    className={`flex-1 py-2.5 rounded-xl text-[13px] font-semibold border transition-all ${
-                      localProfile.firstBaby === v
-                        ? "bg-slate-900 text-white border-slate-900"
-                        : "bg-white text-slate-600 border-slate-200"
-                    }`}
-                  >
-                    {v === "yes" ? t("onboarding.setup.yes") : v === "no" ? t("onboarding.setup.no") : t("onboarding.setup.preferNot")}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/*
+              "Is this your first baby?" used to sit here. Like the two questions
+              already removed from the next screen, its answer was written to the
+              profile and read in exactly zero places, so it cost the user a
+              decision and bought nothing. Ask it again if something ever tailors
+              the content to first-time dads.
+            */}
           </div>
 
           <div className="flex gap-3 mt-8">

@@ -32,8 +32,18 @@ if (contentDir === sampleContent) {
  */
 const base = process.env.APP_BASE || "/";
 
+/**
+ * The version shown in Profile → About. It used to be a hardcoded "v2.0" that
+ * had drifted away from the released build, which made it impossible to tell
+ * from inside the app which version a phone was actually running. It now comes
+ * from package.json, and `npm run audit` fails if that disagrees with the
+ * versionName in android/app/build.gradle.
+ */
+const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf8"));
+
 export default defineConfig({
   base,
+  define: { __APP_VERSION__: JSON.stringify(pkg.version) },
   // Always start from a clean dist: leftover hashed bundles from earlier builds
   // would otherwise pile up and could be picked up by tooling.
   build: { emptyOutDir: true },

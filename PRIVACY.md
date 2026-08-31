@@ -1,6 +1,6 @@
 # Privacy Policy — DadGlass
 
-_Last updated: 2026-06-23_
+_Last updated: 2026-08-31_
 
 ## English
 
@@ -11,6 +11,7 @@ _Last updated: 2026-06-23_
 - **You are in control.** You can edit or delete individual entries in the app, and use **"Reset all my data"** in Profile to erase everything at once. Uninstalling the app (or clearing site data) also removes it.
 - **Calendar / journal export.** When you tap "Add to calendar" or "Save journal", the app creates the file (`.ics` / `.html`) **on your device**. In the app version it is handed to your device's own share sheet so you can open or save it where you want; on the web it downloads normally. Nothing is sent to us. If you use the optional "Add to Google Calendar" link, that opens Google's own website, subject to Google's privacy policy.
 - **Notifications.** If you turn on reminders, the app schedules them **locally on your device** (Android/iOS local notifications). There is no server and no push service involved — we cannot send you anything. On Android this uses the notification, wake-lock and restart permissions purely to show reminders you asked for. You can turn them off any time in the app or in your phone's settings.
+- **Rating the app.** "Rate on Google Play" in Profile opens the app's page in Google Play — Google's own service, subject to Google's privacy policy. On Android the app may also ask Play, once, to show Play's own in-app rating dialog. That dialog belongs to Google; DadGlass never learns whether you rated it or what you wrote. Nothing about you is sent to us either way.
 - **Children.** DadGlass is intended for adults (expecting parents) and does not target children.
 - **Medical disclaimer.** DadGlass is for information and support only. It is **not a medical device** and does not provide medical advice, diagnosis, or treatment. Always consult a doctor or midwife for medical decisions.
 
@@ -30,6 +31,7 @@ it directly in the app (Profile → "Reset all my data").
 - **Tu deții controlul.** Poți edita sau șterge notițe individuale în aplicație și poți folosi **„Șterge toate datele mele”** din Profil pentru a șterge tot deodată. Dezinstalarea aplicației (sau ștergerea datelor site‑ului) le elimină de asemenea.
 - **Export calendar / jurnal.** Când apeși „Adaugă în calendar” sau „Salvează jurnalul”, aplicația creează fișierul (`.ics` / `.html`) **pe dispozitivul tău**. În versiunea de aplicație este trimis către meniul de partajare al telefonului, ca să îl deschizi sau salvezi unde vrei; pe web se descarcă normal. Nimic nu ne este trimis nouă. Linkul opțional „Google Calendar” deschide site‑ul Google, supus politicii de confidențialitate Google.
 - **Notificări.** Dacă activezi memento‑urile, aplicația le programează **local, pe dispozitivul tău** (notificări locale Android/iOS). Nu există server și niciun serviciu de push — nu îți putem trimite nimic. Pe Android, permisiunile de notificare, wake‑lock și repornire sunt folosite exclusiv ca să afișeze memento‑urile cerute de tine. Le poți opri oricând din aplicație sau din setările telefonului.
+- **Evaluarea aplicației.** „Evaluează pe Google Play” din Profil deschide pagina aplicației în Google Play — un serviciu Google, supus politicii de confidențialitate Google. Pe Android, aplicația poate cere o singură dată către Play să afișeze dialogul de evaluare al Play. Dialogul acela aparține Google; DadGlass nu află niciodată dacă ai dat notă sau ce ai scris. În niciun caz nu ne este trimis nimic despre tine.
 - **Copii.** DadGlass este destinat adulților (viitori părinți) și nu se adresează copiilor.
 - **Disclaimer medical.** DadGlass oferă doar informații și sprijin. **Nu este un dispozitiv medical** și nu oferă sfaturi, diagnostic sau tratament medical. Consultă întotdeauna un medic sau o moașă pentru deciziile medicale.
 
