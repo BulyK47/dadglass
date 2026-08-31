@@ -22,22 +22,24 @@ can find it anyway.
 
 ## Part 0 — GitHub first
 
+**This part is DONE.** Verified 31 August: nothing here is left to do, and the
+checklist is kept only so the gate is on the record.
+
 The store's privacy-policy URL is served from GitHub Pages, so it only updates
-when you push. Play points at that URL, and 1.0.5 links out to Google Play, so
-the published policy has to mention it before you submit anything.
+when you push. Play points at that URL, and 1.0.6 links out to Google Play, so
+the published policy had to mention it before anything was submitted.
 
-- [ ] The tester-report work (walkthrough, rating, captioned shots, ASO) is **already committed
-      and pushed** — `988b1ff`, 31 August. Nothing to do for it.
-- [ ] **Commit and push the safe-area fix** that came after it (index.css + six components +
-      vite.config.ts + the version bump). Suggested message:
-
-      Keep every surface clear of the system bars
-
-- [ ] Wait for the **Actions** run (`.github/workflows/deploy.yml`) to go green.
-- [ ] Wait for the **Actions** run (`.github/workflows/deploy.yml`) to go green.
-- [ ] Open <https://bulyk47.github.io/dadglass/privacy.html> and confirm it says
-      **31 August 2026**. If it still says 23 June, the deploy has not landed —
-      do not continue until it has.
+- [x] The tester-report work (walkthrough, rating, captioned shots, ASO) —
+      committed and pushed as `988b1ff`.
+- [x] The safe-area fix (index.css + six components + vite.config.ts + the
+      version bump) — committed and pushed as `ceed3cc`.
+      Note: that commit carries a copy of `988b1ff`'s message by accident, so the
+      history shows the same subject twice. The diff is unambiguous and it is
+      already pushed, so it is left alone rather than force-pushed over.
+- [x] Actions run green, GitHub Pages redeployed.
+- [x] <https://bulyk47.github.io/dadglass/privacy.html> now reads
+      **Last updated: 31 August 2026** and carries the Play-rating disclosure in
+      both languages. Working tree clean, `main` level with `origin/main`.
 
 ---
 

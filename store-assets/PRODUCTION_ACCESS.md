@@ -126,9 +126,9 @@ that makes the rest of the form read as boilerplate.
 ### 8. What changes did you make to your app based on what you learned during your closed test?
 
 ```
-All four recommendations are implemented and shipped as version 1.0.5, and one further defect
-found on a real phone was fixed in 1.0.6 (the app drew underneath the status bar and the
-Android navigation buttons on several screens):
+All four recommendations are implemented, together with a further defect I found while
+testing on a real phone: on several screens the app was drawing underneath the status bar
+and the Android navigation buttons. Everything below ships as version 1.0.6:
 
 1. Store listing rewritten for search. The short description now leads with the
    terms users search for, in both languages, and the opening of the full
@@ -150,7 +150,7 @@ Android navigation buttons on several screens):
    triggered by a button and the user is not asked any qualifying question first.
 
 Reviewing the app again while making those changes turned up four more things,
-all also fixed in 1.0.5:
+all in the same release:
 
 5. The home-preparation list recommended an anti-roll positioning pillow, which
    contradicts safe-sleep guidance (AAP, NHS / The Lullaby Trust) on what belongs
