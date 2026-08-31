@@ -211,7 +211,7 @@ export function DadJournal({ onClose }: DadJournalProps) {
   return (
     <div className="fixed inset-0 z-50 bg-[#fafaf9] flex flex-col max-w-md mx-auto">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-5 py-5">
+      <div className="bg-white border-b border-slate-200 px-5 py-5 pt-safe">
         <button
           onClick={onClose}
           className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-600 mb-4 min-h-[44px]"
@@ -230,7 +230,7 @@ export function DadJournal({ onClose }: DadJournalProps) {
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto">
-        <div className="px-5 pt-5 pb-6 space-y-4">
+        <div className="px-5 pt-5 pb-[calc(1.5rem+var(--sa-bottom))] space-y-4">
           {/* New entry button / form toggle */}
           {!showForm ? (
             <button

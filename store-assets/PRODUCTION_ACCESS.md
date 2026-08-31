@@ -6,7 +6,7 @@ listing copy.
 
 **Everything below is written to be true.** Two conditions, though:
 
-1. **Upload 1.0.5 to the closed track before submitting this form.** Answers 8
+1. **Upload 1.0.6 to the closed track before submitting this form.** Answers 8
    and 9 describe changes made in response to tester feedback. They are real
    changes, in the code, but they only become *shipped* changes once the build
    is on the track the testers are using. Submit the form after that upload.
@@ -126,7 +126,9 @@ that makes the rest of the form read as boilerplate.
 ### 8. What changes did you make to your app based on what you learned during your closed test?
 
 ```
-All four recommendations are implemented and shipped as version 1.0.5:
+All four recommendations are implemented and shipped as version 1.0.5, and one further defect
+found on a real phone was fixed in 1.0.6 (the app drew underneath the status bar and the
+Android navigation buttons on several screens):
 
 1. Store listing rewritten for search. The short description now leads with the
    terms users search for, in both languages, and the opening of the full
@@ -183,9 +185,10 @@ original four.
 The release checks pass. The project has a repeatable pre-release audit script
 covering the privacy policy and its public URL, the medical disclaimer in both
 languages, the app ID, permissions, icons and asset integrity, and version
-consistency. It currently reports zero blocking problems. The only remaining
-warning is a reminder that the signing keystore must never be committed, which is
-its intended behaviour.
+consistency. It currently reports zero blocking problems and two
+warnings, both of which are reminders rather than defects: that the signing keystore
+present on the build machine must never be committed, and that the published privacy
+policy only reaches the store's URL once GitHub Pages has redeployed.
 ```
 
 ### 10. What did you do differently this time?
@@ -204,7 +207,7 @@ provider's draft used.
 
 ## Before you submit
 
-- [ ] 1.0.5 (versionCode 6) uploaded to the closed testing track
+- [ ] 1.0.6 (versionCode 7) uploaded to the closed testing track
 - [ ] New listing copy pasted in, EN and RO, disclaimer still in the first paragraph
 - [ ] Ten captioned screenshots uploaded from `screenshots/{en,ro}/` — **not** the
       uncaptioned ones under `raw/`

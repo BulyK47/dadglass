@@ -55,6 +55,26 @@ Nou: un tur scurt al celor cinci secțiuni pentru cei care intră prima dată (s
 
 ---
 
+## Release notes for 1.0.6 (the second mid-test update)
+
+The build that answers the one defect 1.0.5 left open. Max 500 characters per language.
+
+### English
+```
+Fixes found by testing on real phones.
+
+The app no longer draws underneath the status bar or the Android navigation buttons: the tab headers, the journal, the install guide, the walkthrough and onboarding all keep clear of them now. The walkthrough's buttons had also lost their bottom spacing entirely - fixed. Profile - About now shows the build number as well, so a report can be matched to a version.
+```
+
+### Română
+```
+Reparații găsite la testarea pe telefoane reale.
+
+Aplicația nu mai intră sub bara de status și sub butoanele de navigare: antetele, jurnalul, ghidul de instalare, turul aplicației și onboardingul stau acum în afara lor. Butoanele turului își pierduseră complet spațiul de jos - reparat. Profil - Despre arată acum și numărul buildului, ca să pot lega un raport de o versiune.
+```
+
+---
+
 ## Message to send testers
 
 Being on the tester list is NOT enough — each person must open the opt-in link

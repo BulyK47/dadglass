@@ -114,7 +114,7 @@ export function HowItWorks({ onClose }: { onClose: () => void }) {
         </p>
       </div>
 
-      <div className="flex-shrink-0 px-6 pb-8 pb-safe space-y-5">
+      <div className="flex-shrink-0 px-6 pb-[calc(2rem+var(--sa-bottom))] space-y-5">
         <div className="flex items-center gap-2 justify-center">
           {SLIDES.map((_, i) => (
             <div

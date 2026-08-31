@@ -1,6 +1,13 @@
-# Releasing 1.0.5 — step by step
+# Releasing 1.0.6 — step by step
 
-Written for the 1.0.5 upload during the closed test. Tick as you go.
+Written for the 1.0.6 upload during the closed test. Tick as you go.
+
+> **Why 1.0.6 and not 1.0.5.** 1.0.5 was built on 31 August but never uploaded — the store
+> still serves 1.0.4. The system-bars defect that 1.0.5 left open is fixed now, so what goes up
+> is one build containing both: `store-assets/dadglass-v1.0.6.aab`, versionCode 7.
+> **Upload once.** Two uploads stacked on top of each other is the one avoidable cost here:
+> Google's review SLA is *"counted from the last submitted change to an app"*, and submitting
+> while a change is in review can push you to the back of the queue.
 
 Two things I cannot see from here, so read the real values in your own console:
 the **tester count and day count** on the closed-testing track, and the exact
@@ -19,15 +26,14 @@ The store's privacy-policy URL is served from GitHub Pages, so it only updates
 when you push. Play points at that URL, and 1.0.5 links out to Google Play, so
 the published policy has to mention it before you submit anything.
 
-- [ ] **Commit** the 22 changed files. Suggested message:
+- [ ] The tester-report work (walkthrough, rating, captioned shots, ASO) is **already committed
+      and pushed** — `988b1ff`, 31 August. Nothing to do for it.
+- [ ] **Commit and push the safe-area fix** that came after it (index.css + six components +
+      vite.config.ts + the version bump). Suggested message:
 
-      Answer the tester report: walkthrough, rating, captioned shots, ASO
+      Keep every surface clear of the system bars
 
-      (full body in the terminal transcript / commit template below)
-
-- [ ] **Push.** This also pushes `a55c93a` — the checklist-filter fix from
-      20 August, which has been sitting local since then. That means the Pages
-      site is currently two changes behind, not one.
+- [ ] Wait for the **Actions** run (`.github/workflows/deploy.yml`) to go green.
 - [ ] Wait for the **Actions** run (`.github/workflows/deploy.yml`) to go green.
 - [ ] Open <https://bulyk47.github.io/dadglass/privacy.html> and confirm it says
       **31 August 2026**. If it still says 23 June, the deploy has not landed —
@@ -41,13 +47,18 @@ the published policy has to mention it before you submit anything.
 2. Left menu → **Test and release** → **Testing** → **Closed testing**.
 3. Find your existing track (it will be the one your testers are opted into) and
    open it → **Create new release**.
-4. Under **App bundles**, upload `store-assets/dadglass-v1.0.5.aab`.
-   Wait for processing, then check it reads **1.0.5 (6)**. If it refuses the
-   upload as a duplicate, versionCode 6 is already used — tell me and I will
+4. Under **App bundles**, upload `store-assets/dadglass-v1.0.6.aab`.
+   Wait for processing, then check it reads **1.0.6 (7)**. If it refuses the
+   upload as a duplicate, versionCode 7 is already used — tell me and I will
    bump it.
-5. **Release name** autofills as `6 (1.0.5)`. Leave it.
+   > **The version code has to beat every ACTIVE bundle, not just the closed one.** Play serves
+   > each device the highest version code it is eligible for; a bundle with a lower code than one
+   > still active on another track is marked *Shadowed* or *Superseded* and silently reaches
+   > nobody. Also note that anyone opted into **internal** testing receives ONLY the internal
+   > build — if your own phone is on that track, you will not see this release until you leave it.
+5. **Release name** autofills as `7 (1.0.6)`. Leave it.
 6. **Release notes**: paste from `store-assets/CLOSED_TEST.md` →
-   *"Release notes for 1.0.5"*.
+   *"Release notes for 1.0.6"*.
    - `en-US` box → the English block
    - `ro` box → the Romanian block
    - If Romanian is not offered, add it first: **Grow → Store presence →
@@ -97,7 +108,8 @@ shipped changes, so they should be true on a real device first.
 1. Give the closed-test release a few minutes (occasionally a couple of hours),
    then on your phone: **Play Store → DadGlass → Update**.
 2. Check each of these:
-   - [ ] **Profile → About** shows **v1.0.5** (not v2.0, not 1.0.4)
+   - [ ] **Profile → About** shows **v1.0.6 (7)** — the build number is new in this version,
+         and it is what makes a tester report attributable to a build
    - [ ] **Checklist** shows one row of chips plus a single **Filtre** button —
          not four rows
    - [ ] **Profile → Cum funcționează aplicația** opens the five-card tour, and
@@ -108,10 +120,27 @@ shipped changes, so they should be true on a real device first.
          lumină de veghe…)
    - [ ] Onboarding no longer asks whether it is your first baby — to see it,
          **Profile → Șterge toate datele mele**, then reopen
-3. **The system bars.** Look at the top and bottom edges: does the clock sit on
-   top of the app's header? Are the bottom tabs cramped against, or under, the
-   Android buttons? Report back either way — this is the one known open issue and
-   it is not fixed in 1.0.5.
+3. **The system bars — now the thing to CONFIRM, not to report.** Fixed in 1.0.6. Check the
+   top and bottom edges on every one of these, because each was a separate uncovered surface:
+   - [ ] any tab header (the clock must not touch it)
+   - [ ] **Profile → Cum funcționează** — the header AND the buttons at the bottom, which had
+         lost their 2rem of spacing entirely and sat on the navigation bar
+   - [ ] **Jurnalul** — header, and the last entry must clear the bottom bar
+   - [ ] **Profile → Instalează aplicația** — header
+   - [ ] a feature screen opened from Acasă — header
+   - [ ] onboarding, seen again via **Profile → Șterge toate datele mele**
+   - [ ] the disclaimer sheet and the checklist filter sheet — both bottom sheets
+
+   If anything still sits under a bar, tell me which screen and I will fix that one — the
+   mechanism is one CSS variable now, so a miss is one class, not a redesign.
+
+   > **One cosmetic case deliberately NOT fixed in 1.0.6.** On a phone whose Android System WebView
+   > is older than 140, Capacitor pads the web view instead of passing the insets into the page, so
+   > the strip behind the clock is painted by the system theme — which resolves to #303030 on a
+   > phone in dark mode, i.e. a dark band above a light app. It is a mismatch, not a legibility
+   > problem (the system's own icons stay readable on it), it only affects pre-140 WebViews, and
+   > fixing it means adding `android:windowBackground` to `AppTheme.NoActionBar`. Left for after
+   > production, deliberately: this build is meant to be the low-risk one.
 
 ---
 
@@ -126,7 +155,7 @@ opted out mid-way does not count.
    from the closed-testing track under a **Production access** tab, and it is
    sometimes surfaced as a card on the **Dashboard**.)
 2. Answer using `store-assets/PRODUCTION_ACCESS.md`. It is written to be true of
-   1.0.5, so upload first, answer second.
+   1.0.6, so upload first, answer second.
    - **Question 2** (how easy was recruiting) — your own answer
    - **Question 7** (expected installs) — your own answer; the file suggests
      1,000–10,000 and says why

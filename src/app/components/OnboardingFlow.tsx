@@ -59,7 +59,7 @@ export function OnboardingFlow() {
     <div className="min-h-screen bg-[#fafaf9] flex flex-col">
       {/* Screen 1: Welcome + language + consent (you select to proceed) */}
       {step === 1 && (
-        <div className="flex-1 flex flex-col items-center px-7 pt-12 pb-8 overflow-y-auto text-center">
+        <div className="flex-1 flex flex-col items-center px-7 pt-[calc(3rem+var(--sa-top))] pb-[calc(2rem+var(--sa-bottom))] overflow-y-auto text-center">
           {/* Language toggle */}
           <div className="flex items-center bg-slate-100 rounded-full p-1 gap-1 mb-8">
             {(["en", "ro"] as const).map(lang => (
@@ -140,7 +140,7 @@ export function OnboardingFlow() {
 
       {/* Screen 2: Pregnancy setup */}
       {step === 2 && (
-        <div className="flex-1 flex flex-col px-6 pt-16 pb-8 overflow-y-auto">
+        <div className="flex-1 flex flex-col px-6 pt-[calc(4rem+var(--sa-top))] pb-[calc(2rem+var(--sa-bottom))] overflow-y-auto">
           <div className="mb-10">
             <StepDots current={2} />
           </div>
@@ -247,7 +247,7 @@ export function OnboardingFlow() {
 
       {/* Screen 3: Dad style */}
       {step === 3 && (
-        <div className="flex-1 flex flex-col px-6 pt-16 pb-8 overflow-y-auto">
+        <div className="flex-1 flex flex-col px-6 pt-[calc(4rem+var(--sa-top))] pb-[calc(2rem+var(--sa-bottom))] overflow-y-auto">
           <div className="mb-10">
             <StepDots current={3} />
           </div>

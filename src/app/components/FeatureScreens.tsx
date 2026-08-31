@@ -91,7 +91,7 @@ function Shell({ title, subtitle, onClose, children }: {
   const { language } = useApp();
   return (
     <div className="fixed inset-0 z-50 bg-[#fafaf9] w-full max-w-md mx-auto h-[100dvh] overflow-hidden flex flex-col">
-      <header className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 py-5 flex-shrink-0">
+      <header className="bg-white/95 backdrop-blur-sm border-b border-slate-200 px-5 py-5 pt-safe flex-shrink-0">
         <button
           onClick={onClose}
           className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-600 mb-4 min-h-[44px]"

@@ -41,9 +41,25 @@ const base = process.env.APP_BASE || "/";
  */
 const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf8"));
 
+/**
+ * ...and the build number beside it, because versionName alone is not an identity.
+ * Two different builds can carry the same versionName — 1.0.5 was cut twice, once
+ * before the system-bars fix and once after — and versionCode is the only number
+ * Play treats as the identity of an upload. A tester reporting "still happens on
+ * 1.0.5" cannot be answered without it. Read from build.gradle rather than
+ * duplicated here, and tolerant of both Groovy forms (`versionCode 7` and
+ * `versionCode = 7`); a tree with no native project falls back to the bare
+ * version rather than to a stale number.
+ */
+const gradlePath = path.resolve(__dirname, "android/app/build.gradle");
+const versionCode = fs.existsSync(gradlePath)
+  ? (fs.readFileSync(gradlePath, "utf8").match(/versionCode\s*=?\s*(\d+)/) || [])[1]
+  : undefined;
+const appVersion = versionCode ? `${pkg.version} (${versionCode})` : pkg.version;
+
 export default defineConfig({
   base,
-  define: { __APP_VERSION__: JSON.stringify(pkg.version) },
+  define: { __APP_VERSION__: JSON.stringify(appVersion) },
   // Always start from a clean dist: leftover hashed bundles from earlier builds
   // would otherwise pile up and could be picked up by tooling.
   build: { emptyOutDir: true },

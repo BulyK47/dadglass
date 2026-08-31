@@ -4,7 +4,7 @@ export function DisclaimerModal() {
   const { t, markDisclaimerSeen } = useApp();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-sm px-4 pb-8">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-sm px-4 pb-[calc(2rem+var(--sa-bottom))]">
       <div className="bg-white rounded-3xl p-7 w-full max-w-sm shadow-2xl">
         <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center mb-5">
           <svg className="w-6 h-6 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

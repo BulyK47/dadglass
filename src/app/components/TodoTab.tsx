@@ -294,7 +294,7 @@ function ReminderSheet({ item, onClose, onSetReminder, onRemoveReminder, isSet, 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 px-4 pb-4">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 px-4 pb-[calc(1rem+var(--sa-bottom))]">
       <div className="w-full max-w-md bg-white rounded-t-[1.75rem] border border-slate-200 shadow-2xl p-5">
         <div className="flex items-start justify-between gap-4 mb-4">
           <div>
